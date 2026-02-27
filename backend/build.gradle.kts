@@ -1,11 +1,8 @@
 plugins {
-    java
     id("org.springframework.boot") version "4.0.3"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
-group = "org.kindness"
-version = "0.0.1-SNAPSHOT"
 description = "backend"
 
 java {
