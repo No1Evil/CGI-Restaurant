@@ -15,6 +15,10 @@ public final class Reservation {
     private Long reservationId;
     private Long tableId;
     private Long userId;
-    private LocalDateTime reservationTime;
+    private LocalDateTime reservationStart;
     private LocalDateTime reservationEnd;
+
+    public Reservation(Long tableId, Long userId, LocalDateTime reservationTime, LocalDateTime reservationEnd){
+        this(null, tableId, userId, reservationTime, reservationEnd);
+    }
 }
