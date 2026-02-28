@@ -14,8 +14,10 @@ public final class User {
     private String firstName;
     private String secondName;
     private String email;
+    private String passwordHash;
+    private String role;
 
-    public User(String firstName, String secondName, String email){
-        this(null, firstName, secondName, email);
+    public User(String firstName, String secondName, String email, String passwordHash){
+        this(null, firstName, secondName, email, passwordHash, "USER");
     }
 }
