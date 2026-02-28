@@ -32,7 +32,7 @@ class BackendApplicationTests {
         Zone savedZone = allZones.getLast();
 
         assertNotNull("Id should be presented", savedZone.getZoneId());
-        assertEquals("Names should be same", zone.getName(), savedZone.getName());
+        assertEquals("Name should be same", zone.getName(), savedZone.getName());
         assertEquals("Capacity should be same", zone.getCapacity(), savedZone.getCapacity());
     }
 
@@ -46,8 +46,8 @@ class BackendApplicationTests {
         User savedUser = allUsers.getLast();
 
         assertNotNull("Id should be presented", savedUser.getUserId());
-        assertEquals("1Names should be same", user.getFirstName(), savedUser.getFirstName());
-        assertEquals("2Names should be same", user.getSecondName(), savedUser.getSecondName());
+        assertEquals("1Name should be same", user.getFirstName(), savedUser.getFirstName());
+        assertEquals("2Name should be same", user.getSecondName(), savedUser.getSecondName());
         assertEquals("Email should be same", user.getEmail(), savedUser.getEmail());
     }
 
