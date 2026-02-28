@@ -26,7 +26,7 @@ public final class JdbcUserDao implements BaseDao<User> {
         return user;
     };
 
-    private static final String INSERT_QUERY = "INSERT INTO \"user\"(firstName, secondName, email, password_hash, role) VALUES(?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO \"user\"(first_name, second_name, email, password_hash, role) VALUES(?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "DELETE FROM \"user\" WHERE id=?";
     private final static String FIND_ALL_QUERY = "SELECT * FROM \"user\"";
     private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"user\" WHERE id=?";
