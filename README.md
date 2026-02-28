@@ -6,17 +6,18 @@ Define the stack and visualize how the system should look like:
 
 [Google drive (drawio model)](https://drive.google.com/file/d/1v_0PPJUE9ypQQdyPqu-0_dICQv7SPUP6/view?usp=sharing)
 
-### Selected stack:
+### Stack:
 
-TODO
+> Required: \
+> Java LTS 25 \
+> Spring boot:*
 
-Required: Java 25, Spring boot
+> Selected: \
+> Spring web \
+> React \
+> JDBC
 
-Selected:
 
-Spring web
-
-JDBC
 
 
 #### Fjodor Tsumakov
