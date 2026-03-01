@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,9 +14,11 @@ import lombok.Setter;
 public final class Zone {
     private Long zoneId;
     private String name;
-    private int capacity;
+    private LocalDateTime dateCreated;
+    private LocalDateTime dateUpdated;
+    private boolean isDeleted;
 
-    public Zone(String name, int capacity){
-        this(null, name, capacity);
+    public Zone(String name){
+        this(null, name, LocalDateTime.now(), LocalDateTime.now(), false);
     }
 }

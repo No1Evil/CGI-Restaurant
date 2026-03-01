@@ -17,16 +17,12 @@ Define the stack and visualize how the system should look like:
 > React \
 > JDBC
 
-After adding simple JDBC queries, todolist:
-
-find free table within zone.
-
-find free table within time.
-
-find table by human count. If no: !>2 table.
-
-if >10 humans (if no space found) -> find 2 possible (close to each other)
-
+Updated the entity relation model
+As we need to write an admin-panel it is good to have each entity a
+update and creation time.
+Also, it is good practice not to delete the entity from 
+database completely, but to store in the database.
+Made it has field isDeleted.
 
 
 #### Fjodor Tsumakov

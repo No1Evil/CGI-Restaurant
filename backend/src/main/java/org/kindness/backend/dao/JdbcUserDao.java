@@ -15,21 +15,21 @@ import java.util.Optional;
 public final class JdbcUserDao implements BaseDao<User> {
     private final JdbcTemplate jdbcTemplate;
 
-    private static final RowMapper<User> mapper = (rs, _) -> {
-        var user = new User();
-        user.setUserId(rs.getLong("user_id"));
-        user.setFirstName(rs.getString("first_name"));
-        user.setSecondName(rs.getString("second_name"));
-        user.setEmail(rs.getString("email"));
-        user.setRole(rs.getString("role"));
-        user.setPasswordHash(rs.getString("password_hash"));
-        return user;
-    };
+    private static final RowMapper<User> mapper = (rs, rowNum) -> new User(
+            rs.getLong("id"),
+            rs.getString("first_name"),
+            rs.getString("second_name"),
+            rs.getString("email"),
+            rs.getString("password_hash"),
+            rs.getTimestamp("date_created").toLocalDateTime(),
+            rs.getString("role"),
+            rs.getBoolean("is_deleted")
+    );
 
-    private static final String INSERT_QUERY = "INSERT INTO \"user\"(first_name, second_name, email, password_hash, role) VALUES(?, ?, ?, ?, ?)";
-    private static final String REMOVE_QUERY = "DELETE FROM \"user\" WHERE id=?";
-    private final static String FIND_ALL_QUERY = "SELECT * FROM \"user\"";
-    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"user\" WHERE id=?";
+    private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, second_name, email, password_hash, date_created ,role) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String REMOVE_QUERY = "DELETE FROM \"users\" WHERE id=?";
+    private final static String FIND_ALL_QUERY = "SELECT * FROM \"users\"";
+    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"users\" WHERE id=?";
 
     @Override
     public void insert(User model) {
