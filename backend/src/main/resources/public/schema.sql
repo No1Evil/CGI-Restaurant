@@ -54,3 +54,39 @@ CREATE TABLE IF NOT EXISTS "reservations" (
     CONSTRAINT fk_res_users FOREIGN KEY (user_id) REFERENCES "users"(id),
     CONSTRAINT fk_res_tables FOREIGN KEY (table_id) REFERENCES "tables"(id)
 );
+
+INSERT INTO "zones" (name)
+VALUES ('Vaikne nurk');
+
+INSERT INTO "zones" (name)
+VALUES ('Akna all');
+
+INSERT INTO "zones" (name)
+VALUES ('Laste mangunurk');
+
+INSERT INTO "tables" (zone_id, capacity, pos_x, pos_y)
+VALUES (1, 2, 10.5, 20.0);
+
+INSERT INTO "tables" (zone_id, capacity, pos_x, pos_y)
+VALUES (2, 2, 30.5, 90.0);
+
+INSERT INTO "tables" (zone_id, capacity, pos_x, pos_y)
+VALUES (3, 4, 25.5, 0.0);
+
+INSERT INTO "tables" (zone_id, capacity, pos_x, pos_y)
+VALUES (3, 6, 25.5, 0.0);
+
+INSERT INTO "tables" (zone_id, capacity, pos_x, pos_y)
+VALUES (2, 8, 45.5, 13.0);
+
+INSERT INTO "tables" (zone_id, capacity, pos_x, pos_y)
+VALUES (2, 6, 15.5, 0.0);
+
+INSERT INTO "tables" (zone_id, capacity, pos_x, pos_y)
+VALUES (1, 4, 0.5, 30.0);
+
+INSERT INTO "users" (first_name, second_name, email, password_hash)
+VALUES ('Fedos', 'secondName', 'example@gmail.com', 'sha');
+
+INSERT INTO "reservations" (user_id, table_id, reservation_start, reservation_end)
+VALUES (1, 1, '2026-03-01 18:00:00', '2026-03-01 20:00:00');
