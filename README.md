@@ -23,6 +23,7 @@ update and creation time.
 Also, it is good practice not to delete the entity from 
 database completely, but to store in the database.
 Made it has field isDeleted.
+Also moved schema to snake case to prevent mismatch.
 
 
 #### Fjodor Tsumakov

@@ -27,7 +27,7 @@ public final class JdbcTableDao implements BaseDao<Table> {
     );
 
     private static final String INSERT_QUERY = "INSERT INTO \"tables\"(zone_id, capacity, pos_x, pos_y) VALUES(?, ?, ?, ?)";
-    private static final String REMOVE_QUERY = "DELETE FROM \"tables\" WHERE id=?";
+    private static final String REMOVE_QUERY = "UPDATE \"tables\" SET is_deleted = TRUE WHERE id = ?";;
     private final static String FIND_ALL_QUERY = "SELECT * FROM \"tables\"";
     private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"tables\" WHERE id=?";
     private final static String FIND_ALL_BY_ZONE_ID = "SELECT * from \"tables\" WHERE zone_id=?";

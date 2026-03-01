@@ -25,7 +25,7 @@ public final class JdbcZoneDao implements BaseDao<Zone> {
     );
 
     private static final String INSERT_QUERY = "INSERT INTO \"zones\"(name, date_created, date_updated) VALUES(?, ?, ?)";
-    private static final String REMOVE_QUERY = "DELETE FROM \"zones\" WHERE id=?";
+    private static final String REMOVE_QUERY = "UPDATE \"zones\" SET is_deleted = TRUE WHERE id = ?";
     private final static String FIND_ALL_QUERY = "SELECT * FROM \"zones\"";
     private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"zones\" WHERE id=?";
 
