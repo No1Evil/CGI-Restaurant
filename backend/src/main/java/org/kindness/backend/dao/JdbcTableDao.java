@@ -38,7 +38,7 @@ public final class JdbcTableDao implements BaseDao<Table> {
 
     @Override
     public void insert(Table model) {
-        //jdbcTemplate.update(INSERT_QUERY, model.getZoneId(), model.getCapacity(), model.getPos_x(), model.getPos_y());
+        jdbcTemplate.update(INSERT_QUERY, model.getZoneId(), model.getCapacity(), model.getPosX(), model.getPosY());
     }
 
     @Override

@@ -26,14 +26,16 @@ public final class JdbcUserDao implements BaseDao<User> {
             rs.getBoolean("is_deleted")
     );
 
-    private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, second_name, email, password_hash, date_created, role) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, second_name, email, password_hash, role) VALUES(?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"users\" SET is_deleted = TRUE WHERE id = ?";
     private final static String FIND_ALL_QUERY = "SELECT * FROM \"users\"";
     private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"users\" WHERE id=?";
 
     @Override
     public void insert(User model) {
-        jdbcTemplate.update(INSERT_QUERY, model.getFirstName(), model.getSecondName(), model.getEmail(), model.getPasswordHash(), model.getRole());
+        jdbcTemplate.update(INSERT_QUERY,
+                model.getFirstName(), model.getSecondName(),
+                model.getEmail(), model.getPasswordHash(), model.getRole());
     }
 
     @Override

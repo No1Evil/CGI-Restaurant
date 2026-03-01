@@ -28,8 +28,8 @@ public final class JdbcReservationDao implements BaseDao<Reservation> {
 
     private static final String INSERT_QUERY =
             "INSERT INTO \"reservations\"" +
-            "(user_id, table_id, reservation_start, reservation_end, date_created, date_updated, is_deleted) " +
-            "VALUES(?, ?, ?, ?, ?, ?, ?)";
+            "(user_id, table_id, reservation_start, reservation_end) " +
+            "VALUES(?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"tables\" SET is_deleted = TRUE WHERE id = ?";
     private final static String FIND_ALL_QUERY = "SELECT * FROM \"reservations\"";
     private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"reservations\" WHERE id=?";
@@ -40,7 +40,8 @@ public final class JdbcReservationDao implements BaseDao<Reservation> {
 
     @Override
     public void insert(Reservation model) {
-        jdbcTemplate.update(INSERT_QUERY, model.getTableId(), model.getUserId(),
+        jdbcTemplate.update(INSERT_QUERY,
+                model.getTableId(), model.getUserId(),
                 model.getReservationStart(), model.getReservationEnd());
     }
 
