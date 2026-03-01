@@ -50,8 +50,4 @@ public final class JdbcZoneDao implements BaseDao<Zone> {
                 .stream()
                 .findFirst();
     }
-
-//    public List<Table> findTablesInZone(Long zoneId){
-//        return jdbcTemplate.query(FIND_TABLES_WITHIN_ZONE, )
-//    }
 }
