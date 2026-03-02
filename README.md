@@ -36,5 +36,11 @@ magic of libraries that do create queries by themselves.
 Also to prevent users from booking the same timestamp we create
 a transactional methods and to make a validation - we use a service.
 
+Just for a CV, I want to show how can I make a scalable network
+so for that reason I created another table - restaurants.
+Currently, I think of that Rest-app will validate JWT tokens and will create
+requests to GRPC-services (this is where scalability comes in), and the grpc-service
+will be responsible for database queries
+
 
 #### Fjodor Tsumakov
