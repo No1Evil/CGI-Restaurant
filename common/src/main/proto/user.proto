@@ -36,4 +36,5 @@ message LoginValidationResponse{
   bool success = 1;
   string message = 2;
   int64 user_id = 3;
+  string token = 4;
 }
