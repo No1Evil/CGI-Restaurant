@@ -42,5 +42,9 @@ Currently, I think of that Rest-app will validate JWT tokens and will create
 requests to GRPC-services (this is where scalability comes in), and the grpc-service
 will be responsible for database queries
 
+As I have implemented is_deleted we want to get
+only active data, but also we want to get all active and inactive.
+For now, I’ll stick only to getting all active data.
+
 
 #### Fjodor Tsumakov
