@@ -1,8 +1,8 @@
-package org.kindness.module.persistence.dao;
+package org.kindness.module.persistence.dao.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.kindness.common.dao.BaseDao;
 import org.kindness.common.model.impl.User;
+import org.kindness.module.persistence.dao.BaseDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;

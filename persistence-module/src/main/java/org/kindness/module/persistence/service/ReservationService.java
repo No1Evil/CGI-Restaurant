@@ -2,8 +2,8 @@ package org.kindness.module.persistence.service;
 
 import lombok.RequiredArgsConstructor;
 import org.kindness.common.model.impl.Reservation;
-import org.kindness.module.persistence.dao.JdbcReservationDao;
-import org.kindness.module.persistence.dao.JdbcTableDao;
+import org.kindness.module.persistence.dao.impl.JdbcReservationDao;
+import org.kindness.module.persistence.dao.impl.JdbcTableDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

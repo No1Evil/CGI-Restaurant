@@ -1,10 +1,10 @@
-package org.kindness.module.persistence.dao;
+package org.kindness.module.persistence.dao.impl;
 
 import jakarta.annotation.Nullable;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.kindness.common.dao.BaseDao;
 import org.kindness.common.model.impl.Table;
+import org.kindness.module.persistence.dao.BaseDao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
