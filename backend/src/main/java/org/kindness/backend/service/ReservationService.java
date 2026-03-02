@@ -1,7 +1,7 @@
 package org.kindness.backend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.kindness.api.model.impl.Reservation;
+import org.kindness.common.model.impl.Reservation;
 import org.kindness.backend.dao.JdbcReservationDao;
 import org.kindness.backend.dao.JdbcTableDao;
 import org.springframework.stereotype.Service;

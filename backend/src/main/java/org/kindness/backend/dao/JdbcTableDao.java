@@ -3,8 +3,8 @@ package org.kindness.backend.dao;
 import jakarta.annotation.Nullable;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.kindness.api.dao.BaseDao;
-import org.kindness.api.model.impl.Table;
+import org.kindness.common.dao.BaseDao;
+import org.kindness.common.model.impl.Table;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,7 +52,7 @@ public final class JdbcTableDao implements BaseDao<Table> {
 
     @Override
     public void insert(Table model) {
-        jdbcTemplate.update(INSERT_QUERY, model.getZoneId(), model.getCapacity(), model.getPosX(), model.getPosY());
+        jdbcTemplate.update(INSERT_QUERY, model.getZoneId(), model.getRestaurantId(), model.getCapacity(), model.getPosX(), model.getPosY());
     }
 
     @Override

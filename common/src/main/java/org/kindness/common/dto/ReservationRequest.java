@@ -1,4 +1,4 @@
-package org.kindness.api.dto;
+package org.kindness.common.dto;
 
 import java.time.LocalDateTime;
 

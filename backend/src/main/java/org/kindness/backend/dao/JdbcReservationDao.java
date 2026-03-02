@@ -2,8 +2,8 @@ package org.kindness.backend.dao;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.kindness.api.dao.BaseDao;
-import org.kindness.api.model.impl.Reservation;
+import org.kindness.common.dao.BaseDao;
+import org.kindness.common.model.impl.Reservation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;

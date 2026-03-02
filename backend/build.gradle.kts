@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":api"))
+    implementation(project(":common"))
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     testImplementation("org.springframework.boot:spring-boot-starter-data-jdbc-test")

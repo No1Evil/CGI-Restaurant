@@ -1,4 +1,4 @@
-package org.kindness.api.dao;
+package org.kindness.common.dao;
 
 import java.util.List;
 import java.util.Optional;

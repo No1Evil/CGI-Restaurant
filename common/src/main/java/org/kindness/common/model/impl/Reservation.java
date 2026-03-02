@@ -1,4 +1,4 @@
-package org.kindness.api.model.impl;
+package org.kindness.common.model.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

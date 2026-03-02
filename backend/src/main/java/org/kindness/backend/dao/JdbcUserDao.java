@@ -1,8 +1,8 @@
 package org.kindness.backend.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.kindness.api.dao.BaseDao;
-import org.kindness.api.model.impl.User;
+import org.kindness.common.dao.BaseDao;
+import org.kindness.common.model.impl.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;

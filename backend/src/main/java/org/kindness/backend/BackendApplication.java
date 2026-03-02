@@ -1,13 +1,11 @@
 package org.kindness.backend;
 
-import org.kindness.api.dao.BaseDao;
-import org.kindness.api.model.impl.User;
+import org.kindness.common.dao.BaseDao;
+import org.kindness.common.model.impl.User;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDate;
 
 @SpringBootApplication
 public class BackendApplication {

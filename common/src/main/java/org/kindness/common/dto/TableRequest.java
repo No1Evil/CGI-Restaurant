@@ -1,4 +1,4 @@
-package org.kindness.api.dto;
+package org.kindness.common.dto;
 
 public record TableRequest(
         Long id,
