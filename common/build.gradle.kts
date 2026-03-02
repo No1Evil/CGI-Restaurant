@@ -1,3 +1,7 @@
+plugins {
+    id("com.google.protobuf") version "0.9.6"
+}
+
 dependencies {
 
     implementation("com.google.protobuf:protobuf-java:4.34.0")
@@ -12,4 +16,11 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+// https://medium.com/@rajumanoj/protobuf-installation-for-grpc-gradle-a063d69214c1
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:4.29.3"
+    }
 }
