@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+import org.kindness.common.model.BaseModel;
 
 import java.time.LocalDateTime;
 
@@ -11,17 +13,12 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public final class User {
+@SuperBuilder
+public final class User extends BaseModel {
     private Long userId;
     private String firstName;
     private String secondName;
     private String email;
     private String passwordHash;
-    private LocalDateTime dateCreated;
     private String role;
-    private boolean isDeleted;
-
-    public User(String firstName, String secondName, String email, String passwordHash){
-        this(null, firstName, secondName, email, passwordHash,  LocalDateTime.now(),"USER", false);
-    }
 }

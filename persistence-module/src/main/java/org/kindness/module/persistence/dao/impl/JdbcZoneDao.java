@@ -1,8 +1,8 @@
-package org.kindness.module.persistence.dao;
+package org.kindness.module.persistence.dao.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.kindness.common.dao.BaseDao;
 import org.kindness.common.model.impl.Zone;
+import org.kindness.module.persistence.dao.BaseDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -15,13 +15,13 @@ import java.util.Optional;
 public final class JdbcZoneDao implements BaseDao<Zone> {
     private final JdbcTemplate jdbcTemplate;
 
-    private static final RowMapper<Zone> mapper = (rs, rowNum) -> new Zone(
-            rs.getLong("id"),
-            rs.getString("name"),
-            rs.getTimestamp("date_created").toLocalDateTime(),
-            rs.getTimestamp("date_updated").toLocalDateTime(),
-            rs.getBoolean("is_deleted")
-    );
+    private static final RowMapper<Zone> mapper = (rs, rowNum) -> Zone.builder()
+            .zoneId(rs.getLong("id"))
+            .name(rs.getString("name"))
+            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
+            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
+            .isDeleted(rs.getBoolean("is_deleted"))
+            .build();
 
     private static final String INSERT_QUERY = "INSERT INTO \"zones\"(name) VALUES(?)";
     private static final String REMOVE_QUERY = "UPDATE \"zones\" SET is_deleted = TRUE WHERE id = ?";

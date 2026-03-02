@@ -1,20 +1,19 @@
-package org.kindness.common.model.impl;
+package org.kindness.common.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.kindness.common.model.BaseModel;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
-public final class Zone extends BaseModel {
-    private Long zoneId;
-    private String name;
+public abstract class BaseModel {
+    protected LocalDateTime dateCreated;
+    protected LocalDateTime dateUpdated;
+    protected boolean isDeleted;
 }

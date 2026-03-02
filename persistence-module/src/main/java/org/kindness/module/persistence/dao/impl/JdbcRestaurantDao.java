@@ -1,9 +1,8 @@
-package org.kindness.module.persistence.dao;
+package org.kindness.module.persistence.dao.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.kindness.common.dao.BaseDao;
 import org.kindness.common.model.impl.Restaurant;
-import org.kindness.common.model.impl.Table;
+import org.kindness.module.persistence.dao.BaseDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -16,18 +15,18 @@ import java.util.Optional;
 public final class JdbcRestaurantDao implements BaseDao<Restaurant> {
     private final JdbcTemplate jdbcTemplate;
 
-    private static final RowMapper<Restaurant> mapper = (rs, rowNum) -> new Restaurant(
-            rs.getLong("id"),
-            rs.getString("name"),
-            rs.getString("address"),
-            rs.getString("phone"),
-            rs.getString("email"),
-            rs.getTime("open_time").toLocalTime(),
-            rs.getTime("close_time").toLocalTime(),
-            rs.getTimestamp("date_created").toLocalDateTime(),
-            rs.getTimestamp("date_updated").toLocalDateTime(),
-            rs.getBoolean("is_deleted")
-    );
+    private static final RowMapper<Restaurant> mapper = (rs, _) -> Restaurant.builder()
+            .id(rs.getLong("id"))
+            .name(rs.getString("name"))
+            .address(rs.getString("address"))
+            .phone(rs.getString("phone"))
+            .email(rs.getString("email"))
+            .openTime(rs.getTime("open_time").toLocalTime())
+            .closeTime(rs.getTime("close_time").toLocalTime())
+            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
+            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
+            .isDeleted(rs.getBoolean("is_deleted"))
+            .build();
 
     private static final String INSERT_QUERY = "INSERT INTO \"restaurants\"(name, address, phone, email, open_time, close_time) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"restaurants\" SET is_deleted = TRUE WHERE id = ?";;

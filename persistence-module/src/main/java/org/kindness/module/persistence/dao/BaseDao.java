@@ -1,4 +1,4 @@
-package org.kindness.common.dao;
+package org.kindness.module.persistence.dao;
 
 import java.util.List;
 import java.util.Optional;
