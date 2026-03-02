@@ -31,8 +31,8 @@ public final class JdbcRestaurantDao implements BaseDao<Restaurant> {
 
     private static final String INSERT_QUERY = "INSERT INTO \"restaurants\"(name, address, phone, email, open_time, close_time) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"restaurants\" SET is_deleted = TRUE WHERE id = ?";;
-    private final static String FIND_ALL_QUERY = "SELECT * FROM \"restaurants\"";
-    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"restaurants\" WHERE id=?";
+    private final static String FIND_ALL_QUERY = "SELECT * FROM \"restaurants\" where is_deleted = false";
+    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"restaurants\" WHERE id=? and is_deleted = false";
     private final static String FIND_BY_ADDRESS = "SELECT * FROM \"restaurants\" where address = ? and is_deleted = false";
 
     @Override

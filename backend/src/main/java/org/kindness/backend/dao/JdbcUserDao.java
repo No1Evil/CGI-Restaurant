@@ -28,8 +28,8 @@ public final class JdbcUserDao implements BaseDao<User> {
 
     private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, second_name, email, password_hash, role) VALUES(?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"users\" SET is_deleted = TRUE WHERE id = ?";
-    private final static String FIND_ALL_QUERY = "SELECT * FROM \"users\"";
-    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"users\" WHERE id=?";
+    private final static String FIND_ALL_QUERY = "SELECT * FROM \"users\" where is_deleted = false";
+    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"users\" WHERE id=? and is_deleted = false";
 
     @Override
     public void insert(User model) {

@@ -45,9 +45,9 @@ public final class JdbcTableDao implements BaseDao<Table> {
 
     private static final String INSERT_QUERY = "INSERT INTO \"tables\"(zone_id, restaurant_id, capacity, pos_x, pos_y) VALUES(?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"tables\" SET is_deleted = TRUE WHERE id = ?";;
-    private final static String FIND_ALL_QUERY = "SELECT * FROM \"tables\"";
-    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"tables\" WHERE id=?";
-    private final static String FIND_ALL_BY_ZONE_ID_QUERY = "SELECT * from \"tables\" WHERE zone_id=?";
+    private final static String FIND_ALL_QUERY = "SELECT * FROM \"tables\" where is_deleted = false";
+    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"tables\" WHERE id=? and is_deleted = false";
+    private final static String FIND_ALL_BY_ZONE_ID_QUERY = "SELECT * from \"tables\" WHERE zone_id=? and is_deleted = false";
     private static String FIND_AVAILABLE_TABLES_QUERY;
 
     @Override

@@ -44,8 +44,8 @@ public final class JdbcReservationDao implements BaseDao<Reservation> {
             "(user_id, table_id, reservation_start, reservation_end) " +
             "VALUES(?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"tables\" SET is_deleted = TRUE WHERE id = ?";
-    private final static String FIND_ALL_QUERY = "SELECT * FROM \"reservations\"";
-    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"reservations\" WHERE id=?";
+    private final static String FIND_ALL_QUERY = "SELECT * FROM \"reservations\" where is_deleted = false";
+    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"reservations\" WHERE id=? and is_deleted = false";
     private static String IS_TIME_TAKEN;
 
     @Override
