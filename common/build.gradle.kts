@@ -1,3 +1,5 @@
+import com.google.protobuf.gradle.id
+
 plugins {
     id("com.google.protobuf") version "0.9.6"
 }
@@ -22,5 +24,19 @@ tasks.test {
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:4.29.3"
+    }
+
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.79.0"
+        }
+    }
+
+    generateProtoTasks {
+        all().forEach { task ->
+            task.plugins {
+                id("grpc") { }
+            }
+        }
     }
 }
