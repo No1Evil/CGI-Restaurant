@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Restaurant {
+public final class Restaurant {
     private Long id;
     private String name;
     private String address;
