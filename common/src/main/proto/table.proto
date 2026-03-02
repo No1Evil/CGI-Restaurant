@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.kindness.common.grpc.table";
+
+service TableService {
+  rpc GetAllTablesData(RequestAllTableData) returns (AllTableDataResponse);
+  rpc GetTableData(RequestTableData) returns (TableDataResponse);
+}
+
+message RequestAllTableData {
+  int64 restaraunt_id = 1;
+  int64 zone_id = 2;
+  int32 capacity = 3;
+}
+
+message AllTableDataResponse {
+  repeated TableDataResponse data = 1;
+}
+
+message RequestTableData {
+  int64 table_id = 1;
+}
+
+message TableDataResponse {
+  int64 zone_id = 1;
+  int64 restaraunt_id = 2;
+  int32 capacity = 3;
+  float pos_x = 4;
+  float pos_y = 5;
+}
