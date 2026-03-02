@@ -1,5 +1,6 @@
 select t.* from "tables" t
-where (? is null or t.zone_id = ?)
+where (? is null or t.restaurant_id = ?)
+and (? is null or t.zone_id = ?)
 and (? is null or t.capacity >= ?)
 and t.is_deleted = false
 and not exists(

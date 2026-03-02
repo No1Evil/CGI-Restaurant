@@ -34,6 +34,7 @@ public final class JdbcTableDao implements BaseDao<Table> {
     private static final RowMapper<Table> mapper = (rs, rowNum) -> new Table(
             rs.getLong("id"),
             rs.getLong("zone_id"),
+            rs.getLong("restaurant_id"),
             rs.getInt("capacity"),
             rs.getFloat("pos_x"),
             rs.getFloat("pos_y"),
@@ -42,7 +43,7 @@ public final class JdbcTableDao implements BaseDao<Table> {
             rs.getBoolean("is_deleted")
     );
 
-    private static final String INSERT_QUERY = "INSERT INTO \"tables\"(zone_id, capacity, pos_x, pos_y) VALUES(?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO \"tables\"(zone_id, restaurant_id, capacity, pos_x, pos_y) VALUES(?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"tables\" SET is_deleted = TRUE WHERE id = ?";;
     private final static String FIND_ALL_QUERY = "SELECT * FROM \"tables\"";
     private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"tables\" WHERE id=?";
@@ -72,11 +73,17 @@ public final class JdbcTableDao implements BaseDao<Table> {
     }
 
     /**
+     * Possible filters:
+     * 1. By zone id or in whichever zone
+     * 2. By restaurant id or in whichever restaurant
+     * 3. By people table capacity or whichever people table capacity
      * @return all available tables within startTime and endTime
      */
-    public List<Table> findAllAvailable(@Nullable Long zoneId, @Nullable Integer capacity, Timestamp startTime, Timestamp endTime) {
+    public List<Table> findAllAvailable(@Nullable Long zoneId, @Nullable Long restaurantId, @Nullable Integer capacity, Timestamp startTime, Timestamp endTime) {
         return jdbcTemplate.query(FIND_AVAILABLE_TABLES_QUERY, mapper,
-                zoneId, zoneId, capacity, capacity,
+                zoneId, zoneId,
+                restaurantId, restaurantId,
+                capacity, capacity,
                 endTime, startTime);
     }
 
