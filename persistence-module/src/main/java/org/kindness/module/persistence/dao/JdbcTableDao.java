@@ -1,4 +1,4 @@
-package org.kindness.backend.dao;
+package org.kindness.module.persistence.dao;
 
 import jakarta.annotation.Nullable;
 import jakarta.annotation.PostConstruct;

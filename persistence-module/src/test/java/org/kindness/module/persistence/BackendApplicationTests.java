@@ -1,14 +1,15 @@
-package org.kindness.backend;
+package org.kindness.module.persistence;
 
 import org.junit.jupiter.api.Test;
-import org.kindness.api.dao.BaseDao;
-import org.kindness.api.model.impl.User;
-import org.kindness.api.model.impl.Zone;
-import org.kindness.backend.dao.JdbcZoneDao;
+import org.kindness.common.dao.BaseDao;
+import org.kindness.common.model.impl.User;
+import org.kindness.common.model.impl.Zone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
@@ -24,7 +25,7 @@ class BackendApplicationTests {
 
     @Test
     void checkZoneQueries() {
-        Zone zone = new Zone("Mingi nimi", 52);
+        Zone zone = new Zone("Mingi nimi");
 
         zoneDao.insert(zone);
 
@@ -33,12 +34,15 @@ class BackendApplicationTests {
 
         assertNotNull("Id should be presented", savedZone.getZoneId());
         assertEquals("Name should be same", zone.getName(), savedZone.getName());
-        assertEquals("Capacity should be same", zone.getCapacity(), savedZone.getCapacity());
+    }
+
+    void checkTableQuery(){
+        Optional<Zone> byId = zoneDao.findById(1L);
     }
 
     @Test
     void checkUserQueries() {
-        User user = new User("MingiNimi", "teineNimi", "blah,blah@gmail.com", "wahnotYet");
+        User user = new User("MingiNimi", "teineNimi", UUID.randomUUID() + "@gmail.com", "wahnotYet");
 
         userDao.insert(user);
 
@@ -49,6 +53,11 @@ class BackendApplicationTests {
         assertEquals("1Name should be same", user.getFirstName(), savedUser.getFirstName());
         assertEquals("2Name should be same", user.getSecondName(), savedUser.getSecondName());
         assertEquals("Email should be same", user.getEmail(), savedUser.getEmail());
+    }
+
+    @Test
+    void createTablesAndGetWithFilters(){
+
     }
 
 }

@@ -1,9 +1,9 @@
-package org.kindness.backend.service;
+package org.kindness.module.persistence.service;
 
 import lombok.RequiredArgsConstructor;
 import org.kindness.common.model.impl.Reservation;
-import org.kindness.backend.dao.JdbcReservationDao;
-import org.kindness.backend.dao.JdbcTableDao;
+import org.kindness.module.persistence.dao.JdbcReservationDao;
+import org.kindness.module.persistence.dao.JdbcTableDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
+@Deprecated(forRemoval = true)
 public class ReservationService {
     private final JdbcReservationDao reservationDao;
     private final JdbcTableDao tableDao;

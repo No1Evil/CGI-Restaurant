@@ -1,4 +1,4 @@
-package org.kindness.backend.dao;
+package org.kindness.module.persistence.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.kindness.common.dao.BaseDao;

@@ -1,4 +1,4 @@
 rootProject.name = "CGI-Restaraunt"
 
-include("backend")
+include("persistence-module")
 include("common")
