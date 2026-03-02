@@ -59,8 +59,12 @@ bin/
 **/pnpm-debug.log*
 **/lerna-debug.log*
 
-
 ### Testing
 **/cypress/videos
 **/cypress/screenshots
 **/__screenshots__/
+
+### Database
+*.mv.db
+*.trace.db
+*.lock.db
