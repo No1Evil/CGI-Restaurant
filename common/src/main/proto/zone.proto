@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.kindness.common.grpc.table";
+
+service ZoneService {
+  rpc getZoneData(ZoneDataRequest) returns (ZoneDataResponse);
+  rpc getAllZonesData(AllZonesDataRequest) returns (AllZonesDataResponse);
+}
+
+message ZoneDataRequest{
+  int64 zone_id = 1;
+}
+
+message ZoneDataResponse{
+  string name = 1;
+}
+
+message AllZonesDataRequest{}
+
+message AllZonesDataResponse{
+  repeated ZoneDataResponse data = 1;
+}
