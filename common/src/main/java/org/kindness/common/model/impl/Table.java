@@ -4,24 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+import org.kindness.common.model.BaseModel;
 
 import java.time.LocalDateTime;
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Table {
+@SuperBuilder
+public final class Table extends BaseModel {
     private Long id;
     private Long zoneId;
     private Long restaurantId;
     private int capacity;
     private float posX;
     private float posY;
-    private LocalDateTime dateCreated;
-    private LocalDateTime dateUpdated;
-    private boolean isDeleted;
-
-    public Table(Long zoneId, Long restaurantId, int capacity, float posX, float posY) {
-        this(null, zoneId, restaurantId, capacity, posX, posY, LocalDateTime.now(), LocalDateTime.now(), false);
-    }
 }

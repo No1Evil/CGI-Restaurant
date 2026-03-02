@@ -31,17 +31,17 @@ public final class JdbcTableDao implements BaseDao<Table> {
         FIND_AVAILABLE_TABLES_QUERY = new String(findAvailableTablesScript.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
     }
 
-    private static final RowMapper<Table> mapper = (rs, rowNum) -> new Table(
-            rs.getLong("id"),
-            rs.getLong("zone_id"),
-            rs.getLong("restaurant_id"),
-            rs.getInt("capacity"),
-            rs.getFloat("pos_x"),
-            rs.getFloat("pos_y"),
-            rs.getTimestamp("date_created").toLocalDateTime(),
-            rs.getTimestamp("date_updated").toLocalDateTime(),
-            rs.getBoolean("is_deleted")
-    );
+    private static final RowMapper<Table> mapper = (rs, _) -> Table.builder()
+            .id(rs.getLong("id"))
+            .zoneId(rs.getLong("zone_id"))
+            .restaurantId(rs.getLong("restaurant_id"))
+            .capacity(rs.getInt("capacity"))
+            .posX(rs.getFloat("pos_x"))
+            .posY(rs.getFloat("pos_y"))
+            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
+            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
+            .isDeleted(rs.getBoolean("is_deleted"))
+            .build();
 
     private static final String INSERT_QUERY = "INSERT INTO \"tables\"(zone_id, restaurant_id, capacity, pos_x, pos_y) VALUES(?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"tables\" SET is_deleted = TRUE WHERE id = ?";;

@@ -28,16 +28,16 @@ public final class JdbcReservationDao implements BaseDao<Reservation> {
         IS_TIME_TAKEN = new String(isTimeTakenScript.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
     }
 
-    public final RowMapper<Reservation> mapper = (rs, rowNum) -> new Reservation(
-            rs.getLong("id"),
-            rs.getLong("user_id"),
-            rs.getLong("table_id"),
-            rs.getTimestamp("reservation_start").toLocalDateTime(),
-            rs.getTimestamp("reservation_end").toLocalDateTime(),
-            rs.getTimestamp("date_created").toLocalDateTime(),
-            rs.getTimestamp("date_updated").toLocalDateTime(),
-            rs.getBoolean("is_deleted")
-    );
+    public final RowMapper<Reservation> mapper = (rs, rowNum) -> Reservation.builder()
+            .id(rs.getLong("id"))
+            .tableId(rs.getLong("table_id"))
+            .userId(rs.getLong("user_id"))
+            .reservationStart(rs.getTimestamp("reservation_start").toLocalDateTime())
+            .reservationEnd(rs.getTimestamp("reservation_end").toLocalDateTime())
+            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
+            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
+            .isDeleted(rs.getBoolean("is_deleted"))
+            .build();
 
     private static final String INSERT_QUERY =
             "INSERT INTO \"reservations\"" +

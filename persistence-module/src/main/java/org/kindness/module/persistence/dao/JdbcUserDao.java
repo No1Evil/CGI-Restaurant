@@ -15,16 +15,16 @@ import java.util.Optional;
 public final class JdbcUserDao implements BaseDao<User> {
     private final JdbcTemplate jdbcTemplate;
 
-    private static final RowMapper<User> mapper = (rs, rowNum) -> new User(
-            rs.getLong("id"),
-            rs.getString("first_name"),
-            rs.getString("second_name"),
-            rs.getString("email"),
-            rs.getString("password_hash"),
-            rs.getTimestamp("date_created").toLocalDateTime(),
-            rs.getString("role"),
-            rs.getBoolean("is_deleted")
-    );
+    private static final RowMapper<User> mapper = (rs, rowNum) -> User.builder()
+            .userId(rs.getLong("id"))
+            .firstName(rs.getString("first_name"))
+            .secondName(rs.getString("second_name"))
+            .email(rs.getString("email"))
+            .passwordHash(rs.getString("password_hash"))
+            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
+            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
+            .isDeleted(rs.getBoolean("is_deleted"))
+            .build();
 
     private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, second_name, email, password_hash, role) VALUES(?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"users\" SET is_deleted = TRUE WHERE id = ?";

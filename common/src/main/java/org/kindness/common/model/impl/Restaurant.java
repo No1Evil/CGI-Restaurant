@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+import org.kindness.common.model.BaseModel;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,7 +14,8 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Restaurant {
+@SuperBuilder
+public final class Restaurant extends BaseModel {
     private Long id;
     private String name;
     private String address;
@@ -21,18 +24,4 @@ public final class Restaurant {
 
     private LocalTime openTime;
     private LocalTime closeTime;
-
-    private LocalDateTime dateCreated;
-    private LocalDateTime dateUpdated;
-    private boolean isDeleted;
-
-    public Restaurant(String name, String address){
-        this(name, address, null, null, null, null);
-    }
-
-    public Restaurant(String name, String address, String phone, String email, LocalTime openTime, LocalTime closeTime){
-        this(null, name, address, phone,
-                email, openTime, closeTime,
-                null, null, false);
-    }
 }
