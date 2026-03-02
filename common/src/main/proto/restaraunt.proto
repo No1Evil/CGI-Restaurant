@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "org.kindness.common.grpc.table";
+
+service RestaurantService {
+  rpc GetRestaurantData(RestaurantDataRequest) returns (RestaurantDataResponse);
+  rpc GetAllRestaurantsData(AllRestaurantsDataRequest) returns (AllRestaurantsDataResponse);
+}
+
+message RestaurantDataRequest {
+  int64 restaurant_id = 1;
+}
+
+message RestaurantDataResponse {
+  string name = 1;
+  string address = 2;
+  string phone = 3;
+  string email = 4;
+
+  google.protobuf.Timestamp open_time = 5;
+  google.protobuf.Timestamp close_time = 6;
+}
+
+message AllRestaurantsDataRequest{
+}
+
+message AllRestaurantsDataResponse{
+  repeated RestaurantDataResponse data = 1;
+}
