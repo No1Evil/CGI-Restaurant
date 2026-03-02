@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "org.kindness.common.grpc.reservation";
+
+service ReservationService {
+  rpc ReserveTable(ReserveTableRequest) returns(TableReservationResponse);
+}
+
+message ReserveTableRequest{
+  int64 user_id = 1;
+  int64 table_id = 2;
+
+  google.protobuf.Timestamp reservation_start = 3;
+  google.protobuf.Timestamp reservation_end = 4;
+}
+
+message TableReservationResponse{
+  bool success = 1;
+  string message = 2;
+}
