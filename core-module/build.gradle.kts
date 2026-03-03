@@ -3,7 +3,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
 }
 
-description = "persistence-module"
+description = "core-module"
 
 java {
     toolchain {
@@ -17,11 +17,22 @@ configurations {
     }
 }
 
+val springGrpcVersion by extra("1.0.2")
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.grpc:spring-grpc-dependencies:$springGrpcVersion")
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation(project(":common"))
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    testImplementation("org.springframework.boot:spring-boot-starter-data-jdbc-test")
-    runtimeOnly("com.h2database:h2")
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.grpc:spring-grpc-spring-boot-starter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

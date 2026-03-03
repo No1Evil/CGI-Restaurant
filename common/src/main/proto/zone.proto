@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "org.kindness.common.grpc.table";
+option java_package = "org.kindness.common.grpc.zone";
 
 service ZoneService {
   rpc getZoneData(ZoneDataRequest) returns (ZoneDataResponse);
