@@ -20,6 +20,7 @@ public final class AuthenticationGrpcController extends AuthenticationServiceGrp
     @Override
     public void login(ValidateLoginRequest request, StreamObserver<LoginValidationResponse> observer) {
         var responseBuilder = LoginValidationResponse.newBuilder();
+
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             User user = authenticationService.login(request.getEmail(), request.getPassword());
             String token = jwtTokenProvider.createToken(user.getUserId(), user.getEmail());
