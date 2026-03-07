@@ -49,4 +49,15 @@ For now, I’ll stick only to getting all active data.
 Security: Came in mind that password hash shouldn`t be
 checked on sql side instead we check it in UserService
 
+Currently the weak point of the system - are permissions.
+Before we had user to be responsible for containing his role.
+Now I thought that if we want to implement new roles in the system
+and for each restaurant (before we could only assign to one restaurant).
+Implemented: global role (who you are for the system? System permissions) and
+user_restaurant_permissions (what are you permitted to do in specific restaurant?)
+I would do instead that roles and permissions are all separated and just give the user
+an id of a role, but it will take so much time and nerves.
+Yet I have implemented all in user services, but perfectly it is better to implement it
+in permissions to keep single-responsibility.
+
 #### Fjodor Tsumakov
