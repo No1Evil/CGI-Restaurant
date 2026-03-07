@@ -1,5 +1,5 @@
 services:
-  app-core:
+  core-app:
     build:
       context: .
       dockerfile: core-module/Dockerfile
