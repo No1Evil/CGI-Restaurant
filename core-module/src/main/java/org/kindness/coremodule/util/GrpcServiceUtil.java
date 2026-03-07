@@ -16,6 +16,10 @@ public class GrpcServiceUtil {
             StreamObserver<T> observer,
             Runnable action
     ) {
+        if (observer == null) {
+            throw new IllegalArgumentException("StreamObserver cannot be null!");
+        }
+
         try {
             action.run();
             tryInvoke(responseBuilder, "setSuccess", true);
@@ -34,9 +38,18 @@ public class GrpcServiceUtil {
     }
 
     private static void tryInvoke(Object builder, String methodName, Object value) {
+        if (value == null) return;
+
         try {
-            var method = builder.getClass().getMethod(methodName, value.getClass());
-            method.invoke(builder, value);
-        } catch (Exception ignored) { }
+            for (java.lang.reflect.Method method : builder.getClass().getMethods()) {
+                if (method.getName().equals(methodName) && method.getParameterCount() == 1) {
+                    method.invoke(builder, value);
+                    return;
+                }
+            }
+            log.warn("Method {} not found on {}", methodName, builder.getClass().getName());
+        } catch (Exception e) {
+            log.error("Failed to invoke {} with value {}", methodName, value, e);
+        }
     }
 }
