@@ -14,7 +14,9 @@ public final class ReservationGrpcController extends ReservationServiceGrpc.Rese
 
     @Override
     public void reserveTable(ReserveTableRequest request, StreamObserver<TableReservationResponse> observer) {
-        GrpcServiceUtil.handleRequest(TableReservationResponse.newBuilder(), observer, () -> {
+        var responseBuilder = TableReservationResponse.newBuilder();
+
+        GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             var reservationStart = TimestampConverter.convert(request.getReservationStart());
             var reservationEnd = TimestampConverter.convert(request.getReservationEnd());
 
@@ -31,7 +33,9 @@ public final class ReservationGrpcController extends ReservationServiceGrpc.Rese
 
     @Override
     public void cancelReservation(CancelReservationRequest request, StreamObserver<CancelReservationResponse> observer) {
-        GrpcServiceUtil.handleRequest(CancelReservationRequest.newBuilder(), observer, () -> {
+        var responseBuilder = CancelReservationRequest.newBuilder();
+
+        GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             long reservationId = request.getReservationId();
             reservationService.cancelReservation(reservationId);
         });
