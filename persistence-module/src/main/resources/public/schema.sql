@@ -9,6 +9,7 @@
 
 DROP TABLE IF EXISTS "reservations";
 DROP TABLE IF EXISTS "tables";
+DROP TABLE IF EXISTS "user_restaurant_permissions";
 DROP TABLE IF EXISTS "users";
 DROP TABLE IF EXISTS "zones";
 drop table if exists "restaurants";
@@ -42,14 +43,19 @@ CREATE TABLE IF NOT EXISTS "users" (
     second_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    -- We want to separate all user's permissions.
-    -- for e.g. restaraunt admin shouldn't be able to modify other restaurants
-    -- users shouldn't be bound to only one restaraunt
-    -- and superadmins - should be able to modify all the restaurants
-    restaurant_id BIGINT REFERENCES "restaurants"(id),
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    role VARCHAR(50) DEFAULT 'USER',
+    date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    global_role VARCHAR(50) DEFAULT 'USER',
     is_deleted BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE "user_restaurant_permissions" (
+    user_id BIGINT REFERENCES "users"(id),
+    restaurant_id BIGINT REFERENCES "restaurants"(id),
+    role VARCHAR(50),
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, restaurant_id)
 );
 
 CREATE TABLE IF NOT EXISTS "tables" (

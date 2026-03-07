@@ -1,31 +1,58 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 option java_multiple_files = true;
 option java_package = "org.kindness.common.grpc.table";
 
 service TableService {
-  rpc GetAllTablesData(RequestAllTableData) returns (AllTableDataResponse);
-  rpc GetTableData(RequestTableData) returns (TableDataResponse);
+  rpc GetTable(RequestTable) returns (TableResponse);
+  rpc GetTableCollection(RequestTableCollection) returns (TableCollectionResponse);
+  rpc GetAvailableTables(RequestAvailableTables) returns (TableCollectionResponse);
 }
 
-message RequestAllTableData {
-  int64 restaraunt_id = 1;
-  int64 zone_id = 2;
-  int32 capacity = 3;
-}
+/*
+Requests
+ */
 
-message AllTableDataResponse {
-  repeated TableDataResponse data = 1;
-}
-
-message RequestTableData {
+message RequestTable{
   int64 table_id = 1;
 }
 
-message TableDataResponse {
-  int64 zone_id = 1;
-  int64 restaraunt_id = 2;
-  int32 capacity = 3;
-  float pos_x = 4;
-  float pos_y = 5;
+message RequestTableCollection{}
+
+message RequestAvailableTables{
+  optional int64 zone_id = 1;
+  optional int64 restaurant_id = 2;
+  optional int32 capacity = 3;
+  google.protobuf.Timestamp start_time = 4;
+  google.protobuf.Timestamp end_time = 5;
+}
+
+/*
+Data
+ */
+message TableData{
+  int64 table_id = 1;
+  int64 zone_id = 2;
+  int64 restaraunt_id = 3;
+  int32 capacity = 4;
+  float pos_x = 5;
+  float pos_y = 6;
+}
+
+/*
+Responses
+ */
+message TableCollectionResponse {
+  bool success = 1;
+  string message = 2;
+  repeated TableData data = 3;
+}
+
+message TableResponse {
+  bool success = 1;
+  string message = 2;
+
+  TableData data = 3;
 }

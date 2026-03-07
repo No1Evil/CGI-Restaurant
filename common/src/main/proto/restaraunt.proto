@@ -3,30 +3,49 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 
 option java_multiple_files = true;
-option java_package = "org.kindness.common.grpc.table";
+option java_package = "org.kindness.common.grpc.restaraunt";
 
 service RestaurantService {
-  rpc GetRestaurantData(RestaurantDataRequest) returns (RestaurantDataResponse);
-  rpc GetAllRestaurantsData(AllRestaurantsDataRequest) returns (AllRestaurantsDataResponse);
+  rpc GetRestaurant(RestaurantRequest) returns (RestaurantResponse);
+  rpc GetRestaurantCollection(RestaurantCollectionRequest) returns (RestaurantCollectionResponse);
 }
 
-message RestaurantDataRequest {
+/*
+Requests
+ */
+message RestaurantRequest {
   int64 restaurant_id = 1;
 }
 
-message RestaurantDataResponse {
-  string name = 1;
-  string address = 2;
-  string phone = 3;
-  string email = 4;
+message RestaurantCollectionRequest{}
 
-  google.protobuf.Timestamp open_time = 5;
-  google.protobuf.Timestamp close_time = 6;
+/*
+Data
+ */
+
+message RestaurantData {
+  int64 restaurant_id = 1;
+  string name = 2;
+  string address = 3;
+  string phone = 4;
+  string email = 5;
+
+  google.protobuf.Timestamp open_time = 6;
+  google.protobuf.Timestamp close_time = 7;
 }
 
-message AllRestaurantsDataRequest{
+/*
+Responses
+ */
+
+message RestaurantResponse {
+  bool success = 1;
+  string message = 2;
+  RestaurantData data = 3;
 }
 
-message AllRestaurantsDataResponse{
-  repeated RestaurantDataResponse data = 1;
+message RestaurantCollectionResponse {
+  bool success = 1;
+  string message = 2;
+  repeated RestaurantData data = 3;
 }

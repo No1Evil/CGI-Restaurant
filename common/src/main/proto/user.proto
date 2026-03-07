@@ -4,37 +4,74 @@ option java_multiple_files = true;
 option java_package = "org.kindness.common.grpc.user";
 
 service UserService {
-  rpc GetAllUsers(AllUsersDataRequest) returns (AllUsersDataResponse);
-  rpc GetUserData(UserDataRequest) returns (UserDataResponse);
-  rpc Login(ValidateLoginRequest) returns (LoginValidationResponse);
+  rpc GetUser(UserRequest) returns (UserResponse);
+  rpc GetUserCollection(UserCollectionRequest) returns (UserCollectionResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteResponse);
+  rpc ChangeGlobalRole(ChangeGlobalRoleRequest) returns (UserResponse);
+  rpc ChangeRestaurantRole(ChangeRestaurantRoleRequest) returns (UserResponse);
 }
 
-message UserDataRequest {
+/*
+Requests
+ */
+
+message UserRequest {
   int64 user_id = 1;
 }
 
-message AllUsersDataRequest {}
+message UserCollectionRequest {}
 
-message UserDataResponse {
+message DeleteUserRequest {
+  int64 user_id = 1;
+}
+
+message ChangeGlobalRoleRequest {
+  int64 user_id = 1;
+  string role = 2;
+}
+
+message ChangeRestaurantRoleRequest {
+  int64 user_id = 1;
+  int64 restaurant_id = 2;
+  string role = 3;
+}
+
+/*
+Data
+ */
+
+message RestaurantPermission {
+  int64 restaurant_id = 1;
+  string role = 2;
+}
+
+message UserData{
   int64 user_id = 1;
   string first_name = 2;
   string second_name = 3;
   string email = 4;
   string role = 5;
+
+  repeated RestaurantPermission permissions = 6;
 }
 
-message AllUsersDataResponse {
-  repeated UserDataResponse data = 1;
-}
+/*
+Responses
+ */
 
-message ValidateLoginRequest{
-  string email = 1;
-  string password = 2;
-}
-
-message LoginValidationResponse{
+message UserResponse{
   bool success = 1;
   string message = 2;
-  int64 user_id = 3;
-  string token = 4;
+  UserData data = 3;
+}
+
+message DeleteResponse{
+  bool success = 1;
+  string message = 2;
+}
+
+message UserCollectionResponse {
+  bool success = 1;
+  string message = 2;
+  repeated UserData data = 3;
 }

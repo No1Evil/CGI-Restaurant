@@ -7,7 +7,12 @@ option java_package = "org.kindness.common.grpc.reservation";
 
 service ReservationService {
   rpc ReserveTable(ReserveTableRequest) returns(TableReservationResponse);
+  rpc CancelReservation(CancelReservationRequest) returns(CancelReservationResponse);
 }
+
+/*
+Requests
+ */
 
 message ReserveTableRequest{
   int64 user_id = 1;
@@ -15,6 +20,23 @@ message ReserveTableRequest{
 
   google.protobuf.Timestamp reservation_start = 3;
   google.protobuf.Timestamp reservation_end = 4;
+}
+
+message CancelReservationRequest{
+  int64 reservation_id = 1;
+}
+
+/*
+Data
+ */
+
+/*
+Responses
+ */
+
+message CancelReservationResponse{
+  bool success = 1;
+  string message = 2;
 }
 
 message TableReservationResponse{

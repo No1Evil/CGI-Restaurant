@@ -1,0 +1,38 @@
+services:
+  app-core:
+    build:
+      context: .
+      dockerfile: core-module/Dockerfile
+    networks:
+      - restaurant-net
+    ports:
+      - "9090"
+
+  web-app:
+    build:
+      context: .
+      dockerfile: web-app/Dockerfile
+    networks:
+      - restaurant-net
+    ports:
+      - "8080:8080"
+    environment:
+      - GRPC_SERVER_HOST=app-core
+      - GRPC_SERVER_PORT=9090
+    depends_on:
+      - app-core
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    networks:
+      - restaurant-net
+    ports:
+      - "443:80"
+    depends_on:
+      - web-app
+
+networks:
+  restaurant-net:
+    driver: bridge
