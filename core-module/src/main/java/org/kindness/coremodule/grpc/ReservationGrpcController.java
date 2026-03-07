@@ -4,6 +4,7 @@ import io.grpc.stub.StreamObserver;
 import org.kindness.common.grpc.reservation.*;
 import org.kindness.common.model.impl.Reservation;
 import org.kindness.coremodule.domain.reservation.ReservationService;
+import org.kindness.coremodule.util.GrpcServiceUtil;
 import org.kindness.coremodule.util.TimestampConverter;
 import org.springframework.grpc.server.service.GrpcService;
 
@@ -13,45 +14,26 @@ public final class ReservationGrpcController extends ReservationServiceGrpc.Rese
 
     @Override
     public void reserveTable(ReserveTableRequest request, StreamObserver<TableReservationResponse> observer) {
-        long tableId = request.getTableId();
-        var reservationStart = TimestampConverter.convert(request.getReservationStart());
-        var reservationEnd = TimestampConverter.convert(request.getReservationEnd());
-        long userId = request.getUserId();
+        GrpcServiceUtil.handleRequest(TableReservationResponse.newBuilder(), observer, () -> {
+            var reservationStart = TimestampConverter.convert(request.getReservationStart());
+            var reservationEnd = TimestampConverter.convert(request.getReservationEnd());
 
-        var reservation = Reservation.builder()
-                .userId(userId)
-                .tableId(tableId)
-                .reservationStart(reservationStart)
-                .reservationEnd(reservationEnd)
-                .build();
+            var reservation = Reservation.builder()
+                    .userId(request.getUserId())
+                    .tableId(request.getTableId())
+                    .reservationStart(reservationStart)
+                    .reservationEnd(reservationEnd)
+                    .build();
 
-        var responseBuilder = TableReservationResponse.newBuilder();
-        try {
             reservationService.createReservation(reservation);
-            responseBuilder.setSuccess(true);
-        } catch (IllegalStateException e){
-            responseBuilder.setMessage(e.getMessage());
-            responseBuilder.setSuccess(false);
-        }
-
-        observer.onNext(responseBuilder.build());
-        observer.onCompleted();
+        });
     }
 
     @Override
     public void cancelReservation(CancelReservationRequest request, StreamObserver<CancelReservationResponse> observer) {
-        long reservationId = request.getReservationId();
-
-        var responseBuilder = CancelReservationResponse.newBuilder();
-        try {
+        GrpcServiceUtil.handleRequest(CancelReservationRequest.newBuilder(), observer, () -> {
+            long reservationId = request.getReservationId();
             reservationService.cancelReservation(reservationId);
-            responseBuilder.setSuccess(true);
-        } catch (IllegalStateException e){
-            responseBuilder.setMessage(e.getMessage());
-            responseBuilder.setSuccess(false);
-        }
-
-        observer.onNext(responseBuilder.build());
-        observer.onCompleted();
+        });
     }
 }
