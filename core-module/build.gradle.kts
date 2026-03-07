@@ -35,6 +35,8 @@ dependencies {
     implementation("org.springframework:spring-tx")
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.grpc:spring-grpc-spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
