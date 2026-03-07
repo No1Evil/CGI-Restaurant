@@ -31,6 +31,8 @@ repositories {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":persistence-module"))
+    implementation("org.springframework:spring-tx")
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.grpc:spring-grpc-spring-boot-starter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
