@@ -14,4 +14,13 @@ public class TimestampConverter {
         ZonedDateTime zdt = instant.atZone( z ) ;
         return zdt.toLocalDateTime();
     }
+
+    public static Timestamp fromLocalTime(LocalTime localTime) {
+        LocalDateTime ldt = localTime.atDate(LocalDate.now());
+
+        return Timestamp.newBuilder()
+                .setSeconds(ldt.toEpochSecond(ZoneOffset.UTC))
+                .setNanos(ldt.getNano())
+                .build();
+    }
 }
