@@ -7,6 +7,16 @@ option java_package = "org.kindness.common.grpc.reservation";
 
 service ReservationService {
   rpc ReserveTable(ReserveTableRequest) returns(TableReservationResponse);
+  rpc CancelReservation(CancelReservationRequest) returns(CancelReservationResponse);
+}
+
+message CancelReservationRequest{
+  int64 reservation_id = 1;
+}
+
+message CancelReservationResponse{
+  bool success = 1;
+  string message = 2;
 }
 
 message ReserveTableRequest{
