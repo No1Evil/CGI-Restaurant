@@ -16,7 +16,29 @@ public class UserService {
 
     public User getUserData(Long id){
         if (id == null) throw new IllegalStateException("Id cannot be null");
-        return userDao.findById(id).orElseThrow(() -> new IllegalStateException("No such user"));
+        User user = userDao.findById(id).orElseThrow(() -> new IllegalStateException("No such user"));
+        if (isPrivileged(user.getGlobalRole())) userDao.fillWithPermissions(user);
+        return user;
+    }
+
+    @Transactional
+    public User changeGlobalRole(Long userId, String newRole) {
+        userDao.updateGlobalRole(userId, newRole);
+        return getUserData(userId);
+    }
+
+    @Transactional
+    public User changeRestaurantRole(Long userId, Long restaurantId, String newRole) {
+        userDao.updateRestaurantRole(userId, restaurantId, newRole);
+        return getUserData(userId);
+    }
+
+    public void deleteUser(Long userId){
+        userDao.deleteById(userId);
+    }
+
+    private boolean isPrivileged(String role) {
+        return !"USER".equalsIgnoreCase(role);
     }
 
     public List<User> getAllUsers(){

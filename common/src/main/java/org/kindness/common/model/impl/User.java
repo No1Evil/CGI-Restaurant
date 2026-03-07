@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import org.kindness.common.model.BaseModel;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,5 +21,7 @@ public final class User extends BaseModel {
     private String secondName;
     private String email;
     private String passwordHash;
-    private String role;
+    private String globalRole;
+
+    private List<UserRestaurantPermission> permissions;
 }
