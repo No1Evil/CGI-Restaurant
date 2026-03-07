@@ -14,11 +14,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Service
-@RequiredArgsConstructor
 public class ReservationService {
-    private final JdbcRestaurantDao restaurantDao;
-    private final JdbcReservationDao reservationDao;
-    private final JdbcTableDao tableDao;
+    private JdbcRestaurantDao restaurantDao;
+    private JdbcReservationDao reservationDao;
+    private JdbcTableDao tableDao;
 
     @Transactional
     public void createReservation(Reservation res) throws IllegalStateException {
