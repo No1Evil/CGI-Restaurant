@@ -30,6 +30,7 @@ public final class JdbcUserDao implements BaseDao<User> {
     private static final String REMOVE_QUERY = "UPDATE \"users\" SET is_deleted = TRUE WHERE id = ?";
     private final static String FIND_ALL_QUERY = "SELECT * FROM \"users\" where is_deleted = false";
     private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"users\" WHERE id=? and is_deleted = false";
+    private final static String FIND_BY_EMAIL = "SELECT * FROM \"users\" WHERE email=? and is_deleted = false";
 
     @Override
     public void insert(User model) {
@@ -51,5 +52,10 @@ public final class JdbcUserDao implements BaseDao<User> {
     @Override
     public Optional<User> findById(Long id) {
         return jdbcTemplate.query(FIND_BY_ID_QUERY, mapper).stream().findFirst();
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return jdbcTemplate.query(FIND_BY_EMAIL, mapper, email)
+                .stream().findFirst();
     }
 }
