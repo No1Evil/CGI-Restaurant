@@ -20,7 +20,8 @@ public class AuthenticationService {
                 .orElseThrow(() -> new IllegalStateException("No such user found"));
         if (passwordEncoder.matches(password, user.getPasswordHash())){
             return user;
+        } else {
+            return null;
         }
-        return null;
     }
 }
