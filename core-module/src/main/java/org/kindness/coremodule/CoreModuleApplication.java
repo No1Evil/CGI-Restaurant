@@ -3,7 +3,7 @@ package org.kindness.coremodule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "org.kindness.module.persistence.dao")
 public class CoreModuleApplication {
 
     public static void main(String[] args) {
