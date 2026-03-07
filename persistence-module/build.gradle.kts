@@ -24,7 +24,3 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}

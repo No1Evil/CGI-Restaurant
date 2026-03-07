@@ -16,10 +16,6 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 // https://medium.com/@rajumanoj/protobuf-installation-for-grpc-gradle-a063d69214c1
 protobuf {
     protoc {
