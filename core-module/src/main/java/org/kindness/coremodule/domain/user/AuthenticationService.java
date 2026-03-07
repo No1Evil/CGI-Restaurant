@@ -21,7 +21,7 @@ public class AuthenticationService {
         if (passwordEncoder.matches(password, user.getPasswordHash())){
             return user;
         } else {
-            return null;
+            throw new IllegalStateException("Password doesn`t match");
         }
     }
 }
