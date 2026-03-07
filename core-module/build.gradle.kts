@@ -32,6 +32,14 @@ repositories {
 dependencies {
     implementation(project(":common"))
     implementation(project(":persistence-module"))
+
+    // JWT (https://github.com/jwtk/jjwt?tab=readme-ov-file#gradle)
+
+    implementation("io.jsonwebtoken:jjwt-api:0.13.0")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.13.0")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.13.0")
+
+    //
     implementation("org.springframework:spring-tx")
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.grpc:spring-grpc-spring-boot-starter")
