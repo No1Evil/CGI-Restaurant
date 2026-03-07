@@ -15,13 +15,13 @@ import java.util.Optional;
 public class TableService {
     private final JdbcTableDao tableDao;
 
-    public Table getTableData(Long tableId){
+    public Table getTable(Long tableId){
         if (tableId == null) throw new IllegalStateException("Table id cannot be null");
         return tableDao.findById(tableId)
                 .orElseThrow(() -> new IllegalStateException("No table found"));
     }
 
-    public List<Table> getAllTablesData(){
+    public List<Table> getAllTables(){
         return tableDao.findAll();
     }
 }
