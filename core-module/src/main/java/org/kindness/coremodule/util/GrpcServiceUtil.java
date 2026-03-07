@@ -2,7 +2,9 @@ package org.kindness.coremodule.util;
 
 import com.google.protobuf.GeneratedMessage;
 import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class GrpcServiceUtil {
 
     /*
@@ -20,9 +22,11 @@ public class GrpcServiceUtil {
         } catch (IllegalStateException e) {
             tryInvoke(responseBuilder, "setSuccess", false);
             tryInvoke(responseBuilder, "setMessage", e.getMessage());
+            log.debug(e.getMessage());
         } catch (Exception e) {
             tryInvoke(responseBuilder, "setSuccess", false);
             tryInvoke(responseBuilder, "setMessage", "Internal server error");
+            log.error("Internal server error occurred: {}", e.getMessage(), e);
         }
 
         observer.onNext((T) responseBuilder.build());
