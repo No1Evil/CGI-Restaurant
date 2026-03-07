@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS "users" (
     -- and superadmins - should be able to modify all the restaurants
     restaurant_id BIGINT REFERENCES "restaurants"(id),
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     role VARCHAR(50) DEFAULT 'USER',
     is_deleted BOOLEAN DEFAULT FALSE
 );
