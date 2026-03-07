@@ -1,47 +1,46 @@
 package org.kindness.coremodule.grpc;
 
 import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
 import org.kindness.common.grpc.restaraunt.*;
 import org.kindness.common.model.impl.Restaurant;
 import org.kindness.coremodule.domain.restaurant.RestaurantService;
+import org.kindness.coremodule.util.GrpcServiceUtil;
 import org.kindness.coremodule.util.TimestampConverter;
 import org.springframework.grpc.server.service.GrpcService;
 
 import java.util.List;
 
 @GrpcService
+@RequiredArgsConstructor
 public final class RestaurantGrpcController extends RestaurantServiceGrpc.RestaurantServiceImplBase {
-    private RestaurantService restaurantService;
-
-    @Override
-    public void getAllRestaurantsData(AllRestaurantsDataRequest request, StreamObserver<AllRestaurantsDataResponse> observer) {
-        List<Restaurant> allRestaurants = restaurantService.getAllRestaurants();
-        var response = AllRestaurantsDataResponse.newBuilder()
-                .addAllData(toResponse(allRestaurants))
-                .build();
-
-        observer.onNext(response);
-        observer.onCompleted();
-    }
+    private final RestaurantService restaurantService;
 
     @Override
     public void getRestaurantData(RestaurantDataRequest request, StreamObserver<RestaurantDataResponse> observer) {
-        long restaurantId = request.getRestaurantId();
-        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
-        if (restaurant == null) {
-            observer.onCompleted();
-            return;
-        }
-        RestaurantDataResponse response = toResponse(restaurant);
-        observer.onNext(response);
-        observer.onCompleted();
+        var responseBuilder = RestaurantDataResponse.newBuilder();
+
+        GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
+            Restaurant restaurant = restaurantService.getRestaurant(request.getRestaurantId());
+            responseBuilder.mergeFrom(toResponse(restaurant));
+        });
     }
 
-    private static List<RestaurantDataResponse> toResponse(List<Restaurant> restaurants){
+    @Override
+    public void getAllRestaurantsData(AllRestaurantsDataRequest request, StreamObserver<AllRestaurantsDataResponse> observer) {
+        var responseBuilder = AllRestaurantsDataResponse.newBuilder();
+
+        GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
+            List<Restaurant> restaurants = restaurantService.getAllRestaurants();
+            responseBuilder.addAllData(toResponse(restaurants));
+        });
+    }
+
+    private static List<RestaurantDataResponse> toResponse(List<Restaurant> restaurants) {
         return restaurants.stream().map(RestaurantGrpcController::toResponse).toList();
     }
 
-    private static RestaurantDataResponse toResponse(Restaurant restaurant){
+    private static RestaurantDataResponse toResponse(Restaurant restaurant) {
         return RestaurantDataResponse.newBuilder()
                 .setName(restaurant.getName())
                 .setAddress(restaurant.getAddress())
