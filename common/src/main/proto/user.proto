@@ -6,7 +6,6 @@ option java_package = "org.kindness.common.grpc.user";
 service UserService {
   rpc GetAllUsers(AllUsersDataRequest) returns (AllUsersDataResponse);
   rpc GetUserData(UserDataRequest) returns (UserDataResponse);
-  rpc Login(ValidateLoginRequest) returns (LoginValidationResponse);
 }
 
 message UserDataRequest {
@@ -25,16 +24,4 @@ message UserDataResponse {
 
 message AllUsersDataResponse {
   repeated UserDataResponse data = 1;
-}
-
-message ValidateLoginRequest{
-  string email = 1;
-  string password = 2;
-}
-
-message LoginValidationResponse{
-  bool success = 1;
-  string message = 2;
-  int64 user_id = 3;
-  string token = 4;
 }
