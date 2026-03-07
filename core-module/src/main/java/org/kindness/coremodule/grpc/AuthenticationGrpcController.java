@@ -22,8 +22,6 @@ public final class AuthenticationGrpcController extends AuthenticationServiceGrp
         var responseBuilder = LoginValidationResponse.newBuilder();
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             User user = authenticationService.login(request.getEmail(), request.getPassword());
-            if (user == null) throw new IllegalStateException("Something went wrong");
-
             String token = jwtTokenProvider.createToken(user.getUserId(), user.getEmail());
             responseBuilder.setToken(token);
             responseBuilder.setUserId(user.getUserId());
