@@ -15,7 +15,9 @@ message RequestAllTableData {
 }
 
 message AllTableDataResponse {
-  repeated TableDataResponse data = 1;
+  bool success = 1;
+  string message = 2;
+  repeated TableDataResponse data = 3;
 }
 
 message RequestTableData {
@@ -23,9 +25,12 @@ message RequestTableData {
 }
 
 message TableDataResponse {
-  int64 zone_id = 1;
-  int64 restaraunt_id = 2;
-  int32 capacity = 3;
-  float pos_x = 4;
-  float pos_y = 5;
+  bool success = 1;
+  string message = 2;
+
+  int64 zone_id = 3;
+  int64 restaraunt_id = 4;
+  int32 capacity = 5;
+  float pos_x = 6;
+  float pos_y = 7;
 }

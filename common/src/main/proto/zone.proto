@@ -13,11 +13,15 @@ message ZoneDataRequest{
 }
 
 message ZoneDataResponse{
-  string name = 1;
+  bool success = 1;
+  string message = 2;
+  string name = 3;
 }
 
 message AllZonesDataRequest{}
 
 message AllZonesDataResponse{
-  repeated ZoneDataResponse data = 1;
+  bool success = 1;
+  string message = 2;
+  repeated ZoneDataResponse data = 3;
 }

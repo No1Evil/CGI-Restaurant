@@ -15,13 +15,20 @@ message UserDataRequest {
 message AllUsersDataRequest {}
 
 message UserDataResponse {
-  int64 user_id = 1;
-  string first_name = 2;
-  string second_name = 3;
-  string email = 4;
-  string role = 5;
+  bool success = 1;
+  string message = 2;
+
+  int64 user_id = 3;
+  string first_name = 4;
+  string second_name = 5;
+  string email = 6;
+  string role = 7;
+
+
 }
 
 message AllUsersDataResponse {
-  repeated UserDataResponse data = 1;
+  bool success = 1;
+  string message = 2;
+  repeated UserDataResponse data = 3;
 }
