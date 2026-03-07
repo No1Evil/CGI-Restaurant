@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.kindness.common.grpc.user.RegisterRequest;
 import org.kindness.common.grpc.user.RegisterResponse;
 import org.kindness.common.grpc.user.RegistrationServiceGrpc;
+import org.kindness.common.model.impl.User;
+import org.kindness.coremodule.domain.security.JwtTokenProvider;
 import org.kindness.coremodule.domain.user.RegistrationService;
 import org.kindness.coremodule.util.GrpcServiceUtil;
 import org.springframework.grpc.server.service.GrpcService;
@@ -13,6 +15,7 @@ import org.springframework.grpc.server.service.GrpcService;
 @RequiredArgsConstructor
 public final class RegistrationGrpcController extends RegistrationServiceGrpc.RegistrationServiceImplBase {
     private final RegistrationService registrationService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public void register(RegisterRequest request, StreamObserver<RegisterResponse> observer) {
@@ -23,7 +26,11 @@ public final class RegistrationGrpcController extends RegistrationServiceGrpc.Re
             String password = request.getPassword();
             String firstName = request.getFirstName();
             String secondName = request.getSecondName();
-            registrationService.register(email, password, firstName, secondName);
+            User user = registrationService.register(email, password, firstName, secondName);
+
+            responseBuilder.setUserId(user.getUserId());
+            String token = jwtTokenProvider.createToken(user.getUserId(), user.getEmail());
+            responseBuilder.setToken(token);
         });
     }
 }
