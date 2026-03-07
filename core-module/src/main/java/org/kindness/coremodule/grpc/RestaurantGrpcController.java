@@ -17,37 +17,38 @@ public final class RestaurantGrpcController extends RestaurantServiceGrpc.Restau
     private final RestaurantService restaurantService;
 
     @Override
-    public void getRestaurantData(RestaurantDataRequest request, StreamObserver<RestaurantDataResponse> observer) {
-        var responseBuilder = RestaurantDataResponse.newBuilder();
+    public void getRestaurant(RestaurantRequest request, StreamObserver<RestaurantResponse> observer) {
+        var responseBuilder = RestaurantResponse.newBuilder();
 
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             Restaurant restaurant = restaurantService.getRestaurant(request.getRestaurantId());
-            responseBuilder.mergeFrom(toResponse(restaurant));
+            responseBuilder.setData(convert(restaurant));
         });
     }
 
     @Override
-    public void getAllRestaurantsData(AllRestaurantsDataRequest request, StreamObserver<AllRestaurantsDataResponse> observer) {
-        var responseBuilder = AllRestaurantsDataResponse.newBuilder();
+    public void getRestaurantCollection(RestaurantCollectionRequest request, StreamObserver<RestaurantCollectionResponse> observer) {
+        var responseBuilder = RestaurantCollectionResponse.newBuilder();
 
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             List<Restaurant> restaurants = restaurantService.getAllRestaurants();
-            responseBuilder.addAllData(toResponse(restaurants));
+            responseBuilder.addAllData(convert(restaurants));
         });
     }
 
-    private static List<RestaurantDataResponse> toResponse(List<Restaurant> restaurants) {
-        return restaurants.stream().map(RestaurantGrpcController::toResponse).toList();
+    private static List<RestaurantData> convert(List<Restaurant> restaurants){
+        return restaurants.stream().map(RestaurantGrpcController::convert).toList();
     }
 
-    private static RestaurantDataResponse toResponse(Restaurant restaurant) {
-        return RestaurantDataResponse.newBuilder()
-                .setName(restaurant.getName())
-                .setAddress(restaurant.getAddress())
-                .setPhone(restaurant.getPhone())
-                .setEmail(restaurant.getEmail())
-                .setOpenTime(TimestampConverter.fromLocalTime(restaurant.getOpenTime()))
-                .setCloseTime(TimestampConverter.fromLocalTime(restaurant.getCloseTime()))
+    private static RestaurantData convert(Restaurant rs){
+        return RestaurantData.newBuilder()
+                .setRestaurantId(rs.getId())
+                .setName(rs.getName())
+                .setAddress(rs.getAddress())
+                .setEmail(rs.getEmail())
+                .setPhone(rs.getPhone())
+                .setOpenTime(TimestampConverter.fromLocalTime(rs.getOpenTime()))
+                .setCloseTime(TimestampConverter.fromLocalTime(rs.getCloseTime()))
                 .build();
     }
 }

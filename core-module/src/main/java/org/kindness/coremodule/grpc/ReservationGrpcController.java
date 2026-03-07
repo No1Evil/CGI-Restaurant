@@ -17,8 +17,8 @@ public final class ReservationGrpcController extends ReservationServiceGrpc.Rese
         var responseBuilder = TableReservationResponse.newBuilder();
 
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
-            var reservationStart = TimestampConverter.convert(request.getReservationStart());
-            var reservationEnd = TimestampConverter.convert(request.getReservationEnd());
+            var reservationStart = TimestampConverter.toLocalDateTime(request.getReservationStart());
+            var reservationEnd = TimestampConverter.toLocalDateTime(request.getReservationEnd());
 
             var reservation = Reservation.builder()
                     .userId(request.getUserId())

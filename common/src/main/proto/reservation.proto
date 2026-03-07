@@ -10,14 +10,9 @@ service ReservationService {
   rpc CancelReservation(CancelReservationRequest) returns(CancelReservationResponse);
 }
 
-message CancelReservationRequest{
-  int64 reservation_id = 1;
-}
-
-message CancelReservationResponse{
-  bool success = 1;
-  string message = 2;
-}
+/*
+Requests
+ */
 
 message ReserveTableRequest{
   int64 user_id = 1;
@@ -25,6 +20,23 @@ message ReserveTableRequest{
 
   google.protobuf.Timestamp reservation_start = 3;
   google.protobuf.Timestamp reservation_end = 4;
+}
+
+message CancelReservationRequest{
+  int64 reservation_id = 1;
+}
+
+/*
+Data
+ */
+
+/*
+Responses
+ */
+
+message CancelReservationResponse{
+  bool success = 1;
+  string message = 2;
 }
 
 message TableReservationResponse{

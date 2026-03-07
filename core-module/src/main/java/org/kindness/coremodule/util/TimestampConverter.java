@@ -8,7 +8,7 @@ public class TimestampConverter {
     // Source - https://stackoverflow.com/a/52651480
     // Posted by Basil Bourque, modified by community. See post 'Timeline' for change history
     // Retrieved 2026-03-03, License - CC BY-SA 4.0
-    public static LocalDateTime convert(Timestamp ts){
+    public static LocalDateTime toLocalDateTime(Timestamp ts){
         Instant instant =  Instant.ofEpochSecond( ts.getSeconds() , ts.getNanos() ) ;
         ZoneId z = ZoneId.of("UTC");
         ZonedDateTime zdt = instant.atZone( z ) ;
@@ -22,5 +22,12 @@ public class TimestampConverter {
                 .setSeconds(ldt.toEpochSecond(ZoneOffset.UTC))
                 .setNanos(ldt.getNano())
                 .build();
+    }
+
+    public static java.sql.Timestamp toSqlTimestamp(com.google.protobuf.Timestamp protoTs) {
+        if (protoTs == null) return null;
+
+        Instant instant = Instant.ofEpochSecond(protoTs.getSeconds(), protoTs.getNanos());
+        return java.sql.Timestamp.from(instant);
     }
 }

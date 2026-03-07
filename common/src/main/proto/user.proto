@@ -4,31 +4,44 @@ option java_multiple_files = true;
 option java_package = "org.kindness.common.grpc.user";
 
 service UserService {
-  rpc GetAllUsers(AllUsersDataRequest) returns (AllUsersDataResponse);
-  rpc GetUserData(UserDataRequest) returns (UserDataResponse);
+  rpc GetUser(UserRequest) returns (UserResponse);
+  rpc GetUserCollection(UserCollectionRequest) returns (UserCollectionResponse);
 }
 
-message UserDataRequest {
+/*
+Requests
+ */
+
+message UserRequest {
   int64 user_id = 1;
 }
 
-message AllUsersDataRequest {}
+message UserCollectionRequest {}
 
-message UserDataResponse {
-  bool success = 1;
-  string message = 2;
+/*
+Data
+ */
 
+message UserData{
   int64 user_id = 3;
   string first_name = 4;
   string second_name = 5;
   string email = 6;
   string role = 7;
-
-
 }
 
-message AllUsersDataResponse {
+/*
+Responses
+ */
+
+message UserResponse{
   bool success = 1;
   string message = 2;
-  repeated UserDataResponse data = 3;
+  UserData data = 3;
+}
+
+message UserCollectionResponse {
+  bool success = 1;
+  string message = 2;
+  repeated UserData data = 3;
 }

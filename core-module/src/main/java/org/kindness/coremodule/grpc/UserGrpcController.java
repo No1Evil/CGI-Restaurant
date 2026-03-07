@@ -16,29 +16,31 @@ public final class UserGrpcController extends UserServiceGrpc.UserServiceImplBas
     private final UserService userService;
 
     @Override
-    public void getUserData(UserDataRequest request, StreamObserver<UserDataResponse> observer) {
-        var responseBuilder = UserDataResponse.newBuilder();
+    public void getUser(UserRequest request, StreamObserver<UserResponse> observer) {
+        var responseBuilder = UserResponse.newBuilder();
+
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             User user = userService.getUserData(request.getUserId());
-            responseBuilder.mergeFrom(toResponse(user));
+            responseBuilder.mergeFrom(convert(user));
         });
     }
 
     @Override
-    public void getAllUsers(AllUsersDataRequest request, StreamObserver<AllUsersDataResponse> observer) {
-        var responseBuilder = AllUsersDataResponse.newBuilder();
+    public void getUserCollection(UserCollectionRequest request, StreamObserver<UserCollectionResponse> observer) {
+        var responseBuilder = UserCollectionResponse.newBuilder();
+
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             var users = userService.getAllUsers();
-            responseBuilder.addAllData(toResponse(users));
+            responseBuilder.addAllData(convert(users));
         });
     }
 
-    private static List<UserDataResponse> toResponse(List<User> users){
-        return users.stream().map(UserGrpcController::toResponse).toList();
+    private static List<UserData> convert(List<User> users){
+        return users.stream().map(UserGrpcController::convert).toList();
     }
 
-    private static UserDataResponse toResponse(User user){
-        return UserDataResponse.newBuilder()
+    private static UserData convert(User user){
+        return UserData.newBuilder()
                 .setUserId(user.getUserId())
                 .setEmail(user.getEmail())
                 .setFirstName(user.getFirstName())
