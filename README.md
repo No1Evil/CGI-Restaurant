@@ -46,5 +46,7 @@ As I have implemented is_deleted we want to get
 only active data, but also we want to get all active and inactive.
 For now, I’ll stick only to getting all active data.
 
+Security: Came in mind that password hash shouldn`t be
+checked on sql side instead we check it in UserService
 
 #### Fjodor Tsumakov
