@@ -60,4 +60,10 @@ an id of a role, but it will take so much time and nerves.
 Yet I have implemented all in user services, but perfectly it is better to implement it
 in permissions to keep single-responsibility.
 
+Latest Spring-grpc-client has @ImportGrpcClients and I have dealt with
+error that it doesn’t create beans automatically, and it took me so much time to fix, but nothing. 
+So I have considered to make a beans for each stub instead.
+Actually, I have managed to fix this. Don’t really know why wasn't it working,
+but the error with "no beans found for..." still shows up, maybe due to IntelliJ cache. 
+
 #### Fjodor Tsumakov
