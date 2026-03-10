@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -16,7 +18,7 @@ public class RegistrationService {
 
     @Transactional
     public User register(String email, String password, String firstName, String secondName){
-        if (isEmailBusy(email)) throw new IllegalStateException("Email is already taken");
+        if (isEmailBusy(email)) throw new IllegalStateException("Email already taken");
         String encodedPassword = passwordEncoder.encode(password);
 
         User user = User.builder()
@@ -28,7 +30,8 @@ public class RegistrationService {
 
         userDao.insert(user);
 
-        return user;
+        return userDao.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("Failed to retrieve user after registration"));
     }
 
     public boolean isEmailBusy(String email){
