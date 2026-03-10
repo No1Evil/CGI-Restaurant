@@ -7,7 +7,6 @@ import org.kindness.common.model.BaseModel;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class UserRestaurantPermission extends BaseModel {
     private Long userId;
     private Long restaurantId;
