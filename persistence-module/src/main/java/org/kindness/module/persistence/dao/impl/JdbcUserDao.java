@@ -70,7 +70,7 @@ public final class JdbcUserDao implements BaseDao<User> {
 
     @Override
     public Optional<User> findById(Long id) {
-        return jdbcTemplate.query(FIND_BY_ID_QUERY, mapper).stream().findFirst();
+        return jdbcTemplate.query(FIND_BY_ID_QUERY, mapper, id).stream().findFirst();
     }
 
     public Optional<User> findByEmail(String email) {
