@@ -21,6 +21,6 @@ dependencies {
     implementation(project(":common"))
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     testImplementation("org.springframework.boot:spring-boot-starter-data-jdbc-test")
-    runtimeOnly("com.h2database:h2")
+    implementation("org.postgresql:postgresql:42.7.10")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
