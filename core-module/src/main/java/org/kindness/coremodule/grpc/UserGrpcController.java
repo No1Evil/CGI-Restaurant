@@ -23,7 +23,7 @@ public final class UserGrpcController extends UserServiceGrpc.UserServiceImplBas
 
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             User user = userService.getUserData(request.getUserId());
-            responseBuilder.mergeFrom(convert(user));
+            responseBuilder.setData(convert(user));
         });
     }
 
