@@ -26,6 +26,8 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.13.0")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.13.0")
 
+    implementation("com.hubspot.jackson:jackson3-datatype-protobuf:0.9.20")
+
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.grpc:spring-grpc-client-spring-boot-starter")
