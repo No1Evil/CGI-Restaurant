@@ -1,4 +1,4 @@
-package org.kindness.coremodule.util;
+package org.kindness.common.model.util;
 
 import com.google.protobuf.Timestamp;
 
@@ -15,12 +15,34 @@ public class TimestampConverter {
         return zdt.toLocalDateTime();
     }
 
+    public static LocalTime toLocalTime(com.google.protobuf.Timestamp protoTs) {
+        if (protoTs == null) return null;
+
+        Instant instant = Instant.ofEpochSecond(protoTs.getSeconds(), protoTs.getNanos());
+
+        LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneOffset.UTC);
+
+        return ldt.toLocalTime();
+    }
+
     public static Timestamp fromLocalTime(LocalTime localTime) {
         LocalDateTime ldt = localTime.atDate(LocalDate.now());
 
         return Timestamp.newBuilder()
                 .setSeconds(ldt.toEpochSecond(ZoneOffset.UTC))
                 .setNanos(ldt.getNano())
+                .build();
+    }
+
+    public static Timestamp fromLocalDateTime(LocalDateTime localDateTime) {
+        if (localDateTime == null) return null;
+
+        long seconds = localDateTime.toEpochSecond(ZoneOffset.UTC);
+        int nanos = localDateTime.getNano();
+
+        return Timestamp.newBuilder()
+                .setSeconds(seconds)
+                .setNanos(nanos)
                 .build();
     }
 
