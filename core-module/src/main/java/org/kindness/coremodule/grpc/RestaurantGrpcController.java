@@ -6,7 +6,7 @@ import org.kindness.common.grpc.restaraunt.*;
 import org.kindness.common.model.impl.Restaurant;
 import org.kindness.coremodule.domain.restaurant.RestaurantService;
 import org.kindness.coremodule.util.GrpcServiceUtil;
-import org.kindness.coremodule.util.TimestampConverter;
+import org.kindness.common.model.util.TimestampConverter;
 import org.springframework.grpc.server.service.GrpcService;
 
 import java.util.List;
