@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -80,11 +82,18 @@ public final class JdbcTableDao implements BaseDao<Table> {
      * @return all available tables within startTime and endTime
      */
     public List<Table> findAllAvailable(@Nullable Long zoneId, @Nullable Long restaurantId, @Nullable Integer capacity, Timestamp startTime, Timestamp endTime) {
-        return jdbcTemplate.query(FIND_AVAILABLE_TABLES_QUERY, mapper,
-                zoneId, zoneId,
-                restaurantId, restaurantId,
-                capacity, capacity,
-                endTime, startTime);
+        NamedParameterJdbcTemplate namedTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("zoneId", zoneId);
+        params.addValue("restaurantId", restaurantId);
+        params.addValue("capacity", capacity);
+        params.addValue("start", startTime);
+        params.addValue("end", endTime);
+
+        System.out.println("start time: " + startTime);
+        System.out.println("end time " + endTime);
+
+        return namedTemplate.query(FIND_AVAILABLE_TABLES_QUERY, params, mapper);
     }
 
     public List<Table> findAllByZoneId(Long zoneId) {
