@@ -6,7 +6,7 @@ import org.kindness.common.grpc.table.*;
 import org.kindness.common.model.impl.Table;
 import org.kindness.coremodule.domain.table.TableService;
 import org.kindness.coremodule.util.GrpcServiceUtil;
-import org.kindness.coremodule.util.TimestampConverter;
+import org.kindness.common.model.util.TimestampConverter;
 import org.springframework.grpc.server.service.GrpcService;
 
 import java.util.List;
