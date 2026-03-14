@@ -40,9 +40,7 @@ public final class JdbcTableDao implements BaseDao<Table> {
             .capacity(rs.getInt("capacity"))
             .posX(rs.getFloat("pos_x"))
             .posY(rs.getFloat("pos_y"))
-            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
-            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
-            .isDeleted(rs.getBoolean("is_deleted"))
+            .applyBaseFields(rs)
             .build();
 
     private static final String INSERT_QUERY = "INSERT INTO \"tables\"(zone_id, restaurant_id, capacity, pos_x, pos_y) VALUES(?, ?, ?, ?, ?)";

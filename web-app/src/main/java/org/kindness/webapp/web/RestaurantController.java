@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.kindness.common.model.util.TimestampConverter;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class RestaurantController {
     private final RestaurantServiceGrpc.RestaurantServiceBlockingStub restaurantService;
+    private final ObjectMapper objectMapper;
 
     @PostMapping("/get")
     public ResponseEntity<?> getRestaurant(@RequestParam long id){

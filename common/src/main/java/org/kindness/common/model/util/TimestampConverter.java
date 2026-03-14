@@ -52,4 +52,17 @@ public class TimestampConverter {
         Instant instant = Instant.ofEpochSecond(protoTs.getSeconds(), protoTs.getNanos());
         return java.sql.Timestamp.from(instant);
     }
+
+    public static Timestamp fromInstant(Instant instant) {
+        if (instant == null) return null;
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
+    }
+
+    public static Instant toInstant(Timestamp ts) {
+        if (ts == null) return null;
+        return Instant.ofEpochSecond(ts.getSeconds(), ts.getNanos());
+    }
 }

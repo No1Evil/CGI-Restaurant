@@ -30,16 +30,14 @@ public final class JdbcUserDao implements BaseDao<User> {
         UPDATE_RESTAURANT_ROLE = new String(updateRestaurantRoleScript.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
     }
 
-    private static final RowMapper<User> mapper = (rs, rowNum) -> User.builder()
+    private static final RowMapper<User> mapper = (rs, _) -> User.builder()
             .userId(rs.getLong("id"))
             .firstName(rs.getString("first_name"))
-            .secondName(rs.getString("second_name"))
+            .lastName(rs.getString("last_name"))
             .email(rs.getString("email"))
-            .passwordHash(rs.getString("password_hash"))
-            .globalRole(rs.getString("global_role"))
-            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
-            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
-            .isDeleted(rs.getBoolean("is_deleted"))
+            .password(rs.getString("password"))
+            .role(rs.getString("role"))
+            .applyBaseFields(rs)
             .build();
 
     private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, second_name, email, password_hash, global_role) VALUES(?, ?, ?, ?, ?)";
@@ -54,8 +52,8 @@ public final class JdbcUserDao implements BaseDao<User> {
     @Override
     public void insert(User model) {
         jdbcTemplate.update(INSERT_QUERY,
-                model.getFirstName(), model.getSecondName(),
-                model.getEmail(), model.getPasswordHash(), model.getGlobalRole());
+                model.getFirstName(), model.getLastName(),
+                model.getEmail(), model.getPassword(), model.getRole());
     }
 
     @Override

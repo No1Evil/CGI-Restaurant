@@ -21,11 +21,9 @@ public final class JdbcRestaurantDao implements BaseDao<Restaurant> {
             .address(rs.getString("address"))
             .phone(rs.getString("phone"))
             .email(rs.getString("email"))
-            .openTime(rs.getTime("open_time").toLocalTime())
-            .closeTime(rs.getTime("close_time").toLocalTime())
-            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
-            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
-            .isDeleted(rs.getBoolean("is_deleted"))
+            .openAt(rs.getTime("open_time").toLocalTime())
+            .closeAt(rs.getTime("close_time").toLocalTime())
+            .applyBaseFields(rs)
             .build();
 
     private static final String INSERT_QUERY = "INSERT INTO \"restaurants\"(name, address, phone, email, open_time, close_time) VALUES(?, ?, ?, ?, ?, ?)";
@@ -38,7 +36,7 @@ public final class JdbcRestaurantDao implements BaseDao<Restaurant> {
     public void insert(Restaurant model) {
         jdbcTemplate.update(INSERT_QUERY, model.getName(), model.getAddress(),
                 model.getPhone(), model.getEmail(),
-                model.getOpenTime(), model.getCloseTime());
+                model.getOpenAt(), model.getCloseAt());
     }
 
     @Override

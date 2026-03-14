@@ -12,7 +12,7 @@ const UserMenu = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 className="px-4 py-2 bg-sky-800 hover:bg-sky-700 text-white rounded transition"
             >
-                {user ? `${user.firstName} ${user.secondName}` : "Login / Register"}
+                {user ? `${user.firstName} ${user.lastName}` : "Login / Register"}
             </button>
 
             {isOpen && (
