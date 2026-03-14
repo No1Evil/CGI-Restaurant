@@ -66,4 +66,19 @@ So I have considered to make a beans for each stub instead.
 Actually, I have managed to fix this. Don’t really know why wasn't it working,
 but the error with "no beans found for..." still shows up, maybe due to IntelliJ cache. 
 
+Requests took 400ms but after research
+I noticed that it only happens after boot, so I think that
+is likely due to lazy initializations. Actually, it is ~100ms and
+when response body is empty it takes max of 10-20ms
+
+It is my first time working with React (previously I used Vue)
+Almost most part on frontend is written by AI, because
+I don’t really have a vision of how to 
+make a cool-looking website, my strategy was to give a
+AI a base and make him upgrade the code and write css.
+I switched to tailwind (best practice) because it will show what really is happening
+and I won’t paste the AI written css without thinking.
+
+Need to rewrite timestamps on backend side, because I didn’t really
+care about time zones, and now it has surfaced.
 #### Fjodor Tsumakov
