@@ -1,5 +1,6 @@
 package org.kindness.coremodule.domain.restaurant;
 
+import lombok.RequiredArgsConstructor;
 import org.kindness.common.model.impl.Restaurant;
 import org.kindness.module.persistence.dao.impl.JdbcRestaurantDao;
 import org.springframework.stereotype.Service;
@@ -8,9 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class RestaurantService {
-    private JdbcRestaurantDao restaurantDao;
+    private final JdbcRestaurantDao restaurantDao;
 
     public Restaurant getRestaurant(Long restaurantId){
         if (restaurantId == null) throw new IllegalStateException();
