@@ -1,19 +1,25 @@
 ## Project Workflow
-
-Define the stack and visualize how the system should look like:
-
-[Google drive (drawio model)](https://drive.google.com/file/d/1v_0PPJUE9ypQQdyPqu-0_dICQv7SPUP6/view?usp=sharing)
-
-### Stack:
+### Stack
 
 > Required: \
 > Java LTS 25 \
-> Spring boot:*
+> Spring boot
 
 > Selected: \
 > Spring web \
-> React \
-> JDBC
+> React + axios + tailwind \
+> JDBC \
+> gRPC \
+> Security: Spring security + JWT
+
+### Visualization:
+
+#### C4 model
+![C4 model](images/CGI-Restaraunt-c4model.drawio.png)
+#### Entity relation model
+![Entity relation model](images/CGI-Restaraunt-Entities.drawio.png)
+
+## Workflow
 
 Updated the entity relation model
 as we need to write an admin-panel it is good to have each entity an
