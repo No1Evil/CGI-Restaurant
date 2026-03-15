@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.kindness.common.model.impl.Reservation;
 import org.kindness.common.model.impl.Restaurant;
 import org.kindness.common.model.impl.Table;
+import org.kindness.common.model.impl.User;
 import org.kindness.common.model.util.TimestampConverter;
+import org.kindness.coremodule.domain.user.UserService;
 import org.kindness.module.persistence.dao.impl.JdbcReservationDao;
 import org.kindness.module.persistence.dao.impl.JdbcRestaurantDao;
 import org.kindness.module.persistence.dao.impl.JdbcTableDao;
+import org.kindness.module.persistence.dao.impl.JdbcUserDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +27,7 @@ import static org.kindness.common.model.util.TimestampConverter.DEFAULT_ZONE;
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
+    private final JdbcUserDao userDao;
     private final JdbcRestaurantDao restaurantDao;
     private final JdbcReservationDao reservationDao;
     private final JdbcTableDao tableDao;
@@ -58,11 +62,15 @@ public class ReservationService {
 
     @Transactional
     public void cancelReservation(Long reservationId, Long userId){
+        var user = userDao.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("User not found"));
+
         var reservation = reservationDao.findById(reservationId)
                 .orElseThrow(() -> new IllegalStateException("Reservation not found"));
 
-        if (!reservation.getUserId().equals(userId)) {
-            throw new IllegalStateException("You cant access that reservation");
+        boolean isPrivileged = !"USER".equalsIgnoreCase(user.getRole());
+        if (!isPrivileged && !reservation.getUserId().equals(userId)) {
+            throw new IllegalStateException("You don't have permission to cancel this reservation");
         }
 
         reservationDao.deleteById(reservationId);
