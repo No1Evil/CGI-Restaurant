@@ -32,13 +32,14 @@ public class TableController {
         Instant start = Instant.parse(dto.startTime);
         Instant end = Instant.parse(dto.endTime);
 
-        RequestAvailableTables request = RequestAvailableTables.newBuilder()
-                .setRestaurantId(dto.restaurantId)
-                .setZoneId(dto.zoneId)
-                .setCapacity(dto.capacity)
+        var requestBuilder = RequestAvailableTables.newBuilder()
                 .setStartTime(TimestampConverter.fromInstant(start))
-                .setEndTime(TimestampConverter.fromInstant(end))
-                .build();
+                .setEndTime(TimestampConverter.fromInstant(end));
+        if (dto.zoneId != null) requestBuilder.setZoneId(dto.zoneId);
+        if (dto.restaurantId != null) requestBuilder.setRestaurantId(dto.restaurantId);
+        if (dto.capacity != null) requestBuilder.setCapacity(dto.capacity);
+
+        RequestAvailableTables request = requestBuilder.build();
 
         TableCollectionResponse response = tableService.getAvailableTables(request);
 
