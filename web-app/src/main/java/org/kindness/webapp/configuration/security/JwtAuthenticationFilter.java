@@ -1,6 +1,7 @@
 package org.kindness.webapp.configuration.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,27 +31,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-            Claims claims = jwtTokenProvider.getClaims(token);
 
-            Long userId = claims.get("userId", Long.class);
-            String email = claims.getSubject();
+            try {
+                if (jwtTokenProvider.validateToken(token)) {
+                    Claims claims = jwtTokenProvider.getClaims(token);
 
-            UserPrincipal principal = new UserPrincipal(
-                    email,
-                    "",
-                    true, true, true, true,
-                    new ArrayList<>(),
-                    userId
-            );
+                    Long userId = claims.get("userId", Long.class);
+                    String email = claims.getSubject();
 
-            if (jwtTokenProvider.validateToken(token)) {
-                UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(
-                                principal,
-                                null,
-                                principal.getAuthorities()
-                        );
-                SecurityContextHolder.getContext().setAuthentication(auth);
+                    UserPrincipal principal = new UserPrincipal(
+                            email,
+                            "",
+                            true, true, true, true,
+                            new ArrayList<>(),
+                            userId
+                    );
+
+                    UsernamePasswordAuthenticationToken auth =
+                            new UsernamePasswordAuthenticationToken(
+                                    principal,
+                                    null,
+                                    principal.getAuthorities()
+                            );
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                }
+            } catch (ExpiredJwtException e){
+                logger.debug("Token expired: {}", e);
+            } catch (Exception e){
+                logger.error("Could not set user authentication", e);
             }
         }
         filterChain.doFilter(request, response);
