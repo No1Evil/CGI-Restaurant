@@ -1,7 +1,7 @@
 select t.* from "tables" t
 where (:zoneId IS NULL OR t.zone_id = :zoneId)
 and (:restaurantId IS NULL OR t.restaurant_id = :restaurantId)
-and (:capacity IS NULL OR t.capacity >= :capacity)
+and (:capacity IS NULL OR (t.capacity >= :capacity AND t.capacity <= :capacity + 2))
 and t.is_deleted = false
 and not exists(
     select 1
@@ -10,4 +10,5 @@ and not exists(
         and r.ends_at > :start
         and r.starts_at < :end
         and r.is_deleted = false
+        AND ends_at > NOW()
 )
