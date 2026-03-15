@@ -20,7 +20,7 @@
 
 ## Workflow
 
-### First steps (1-day)
+### First steps (1-3 days)
 Firstly, defined what we are requirements for building the project and then
 started with visualizing the project. Secondly started visualizing the project
 with C4 model and Entity Relation Model. That helped me a lot not to start
