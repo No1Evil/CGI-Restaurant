@@ -38,8 +38,6 @@ public class ReservationService {
             throw new IllegalStateException("Cant reserve before now");
         }
 
-        System.out.println(reservationDao.isTimeTaken(res));
-
         if (reservationDao.isTimeTaken(res)){
             throw new IllegalStateException("The time is taken");
         }
