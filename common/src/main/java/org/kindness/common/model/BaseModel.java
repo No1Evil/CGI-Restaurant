@@ -22,8 +22,11 @@ public abstract class BaseModel {
 
     public abstract static class BaseModelBuilder<C extends BaseModel, B extends BaseModelBuilder<C, B>> {
         public B applyBaseFields(ResultSet rs) throws SQLException {
-            return this.createdAt(rs.getObject("created_at", Instant.class))
-                    .updatedAt(rs.getObject("updated_at", Instant.class))
+            var created = rs.getTimestamp("created_at");
+            var updated = rs.getTimestamp("updated_at");
+
+            return this.createdAt(created != null ? created.toInstant() : null)
+                    .updatedAt(updated != null ? updated.toInstant() : null)
                     .isDeleted(rs.getBoolean("is_deleted"));
         }
     }
