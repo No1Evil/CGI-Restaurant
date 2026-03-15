@@ -50,10 +50,10 @@ public final class JdbcReservationDao implements BaseDao<Reservation> {
             "(user_id, table_id, starts_at, ends_at) " +
             "VALUES(?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"reservations\" SET is_deleted = TRUE WHERE id = ?";
-    private final static String FIND_ALL_QUERY = "SELECT * FROM \"reservations\" WHERE is_deleted = false";
-    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"reservations\" WHERE id=? and is_deleted = false";
-    private final static String FIND_BY_ID_AND_USER_ID_QUERY = "SELECT * FROM \"reservations\" WHERE id=? and user_id=? and is_deleted=false";
-    private final static String FIND_ALL_USER_RESERVATIONS_QUERY = "SELECT * FROM \"reservations\" WHERE user_id=? and is_deleted=false";
+    private final static String FIND_ALL_QUERY = "SELECT * FROM \"reservations\" WHERE is_deleted = false AND ends_at > NOW()";
+    private final static String FIND_BY_ID_QUERY = "SELECT * FROM \"reservations\" WHERE id=? and is_deleted = false AND ends_at > NOW();";
+    private final static String FIND_BY_ID_AND_USER_ID_QUERY = "SELECT * FROM \"reservations\" WHERE id=? and user_id=? and is_deleted=false AND ends_at > NOW();";
+    private final static String FIND_ALL_USER_RESERVATIONS_QUERY = "SELECT * FROM \"reservations\" WHERE user_id=? and is_deleted=false AND ends_at > NOW();";
     private static String IS_TIME_TAKEN;
 
     @Override
