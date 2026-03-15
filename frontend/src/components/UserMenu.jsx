@@ -21,7 +21,7 @@ const UserMenu = () => {
                         <div className="flex flex-col gap-2">
                             <p className="text-xs text-gray-500 truncate">{user.email}</p>
 
-                            {user.globalRole === 'ADMIN' && (
+                            {user.role === 'ADMIN' && (
                                 <Link to="/admin" className="text-red-600 font-bold hover:text-red-800">
                                     Admin Panel
                                 </Link>
