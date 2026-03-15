@@ -20,14 +20,65 @@
 
 ## Workflow
 
-### First steps
+### First steps (1-day)
+Firstly, defined what we are requirements for building the project and then
+started with visualizing the project. Secondly started visualizing the project
+with C4 model and Entity Relation Model. That helped me a lot not to start
+writing unnecessary classes and methods.
+Explored some best-practises and what are using in those systems.
+
+A few days later asked my friend to review the entity relation model, as he is proficient in
+databases and frontend. So with that my Entity relation model was complete and I could start
+doing all the queries and scripts. To make creating tables a bit faster I asked AI to 
+write them for me, because that would take me much time.
 
 ### The why
+#### Selecting stack
+1. Spring-Web (Rest API) - The one that being used with spring boot
+2. JDBC - Offers total control over SQL queries. I didn’t want to use 'magic libraries' that will
+do all job for me and hide all the processes, and I wanted to practice SQL a bit.
+3. Spring-security + JWT - stateless authentication, best for horizontally scaling 
+and pretty easy to implement (Wanted to try this)
+4. React - component based library like Vue but more efficient. Previously, I only
+created frontend with Vue, but React was the thing that I didn’t really want to touch 
+due to my fear of frontend :D. \
+Sadly, most part of it is AI generated because I didn’t really had time
+to create a good-looking web
+5. Tailwind - I have heard before, that this is a best library and helps a lot with CSS writing (CSS transparency), and I wanted
+to try this someday. So that day came.
+6. gRPC - is not needed for the project, but I wanted to make the project scalable and extend my portfolio.
 
-### Challenges
+### Technical challenges
+1. Have created for myself a pain with gRPC and had to write
+for each call to backend requests and responses :death-skull:
 
-### Future improvements
+2. gRPC Integration: Encountered false-positive "No beans found" errors with 
+@ImportGrpcClients due to IDE cache issues.\
+Fix: SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") :D or could write beans for each.
 
+3. Implementing permission system, yet it not really implemented but thinking of how should they look in
+the database caused a headache.
+
+4. Faced significant issues with timestamp in the db. Fix: Migrated to PostgreSQL timestamptz and 
+utilized java.time.Instant in the backend for UTC handling 
+
+5. Setting up composing docker from IntelliJ on my server-laptop
+
+6. Combining student-life, this project writing and having a girlfriend L. Skipped a lot of days and time due to this.
+
+### Improvements that could be made, but no time
+1. Implement api-gateway to make the system really scalable
+2. Make utility classes for JDBC Dao to remove dupe code & strings
+3. Write more queries and services into the persistence-module
+4. Implement more GrpcServices and separate them more.
+5. Reconsider the package structure
+6. RENAME THE CORE-MODULE TO CORE-APP
+7. Use Redis to store the cache for user data
+8. Make a dedicated authentication-app for validating and creating jwt tokens
+9. Use RabbitMQ/Redis to send users notifications
+10. Tests.....
+
+### Raw workflow/notes 
 Updated the entity relation model
 as we need to write an admin-panel it is good to have each entity an
 update and creation time.
