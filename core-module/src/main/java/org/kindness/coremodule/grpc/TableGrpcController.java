@@ -6,7 +6,7 @@ import org.kindness.common.grpc.table.*;
 import org.kindness.common.model.impl.Table;
 import org.kindness.coremodule.domain.table.TableService;
 import org.kindness.coremodule.util.GrpcServiceUtil;
-import org.kindness.coremodule.util.TimestampConverter;
+import org.kindness.common.model.util.TimestampConverter;
 import org.springframework.grpc.server.service.GrpcService;
 
 import java.util.List;
@@ -40,12 +40,16 @@ public final class TableGrpcController extends TableServiceGrpc.TableServiceImpl
     public void getAvailableTables(RequestAvailableTables request, StreamObserver<TableCollectionResponse> observer) {
         var responseBuilder = TableCollectionResponse.newBuilder();
 
+        Long zoneId = request.hasZoneId() ? request.getZoneId() : null;
+        Long restaurantId = request.hasRestaurantId() ? request.getRestaurantId() : null;
+        Integer capacity = request.hasCapacity() ? request.getCapacity() : null;
+
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
-            var startTime = TimestampConverter.toSqlTimestamp(request.getStartTime());
-            var endTime = TimestampConverter.toSqlTimestamp(request.getEndTime());
+            var startTime = TimestampConverter.toInstant(request.getStartTime());
+            var endTime = TimestampConverter.toInstant(request.getEndTime());
 
             List<Table> tables = tableService.getAvailableTables(
-                    request.getZoneId(), request.getRestaurantId(), request.getCapacity(),
+                    zoneId, restaurantId, capacity,
                     startTime, endTime);
 
             responseBuilder.addAllData(convert(tables));

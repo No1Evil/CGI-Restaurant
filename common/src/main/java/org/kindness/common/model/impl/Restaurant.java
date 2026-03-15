@@ -7,6 +7,9 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.kindness.common.model.BaseModel;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -22,6 +25,6 @@ public final class Restaurant extends BaseModel {
     private String phone;
     private String email;
 
-    private LocalTime openTime;
-    private LocalTime closeTime;
+    private LocalTime openAt;
+    private LocalTime closeAt;
 }

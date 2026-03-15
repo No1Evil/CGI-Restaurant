@@ -18,9 +18,7 @@ public final class JdbcZoneDao implements BaseDao<Zone> {
     private static final RowMapper<Zone> mapper = (rs, rowNum) -> Zone.builder()
             .zoneId(rs.getLong("id"))
             .name(rs.getString("name"))
-            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
-            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
-            .isDeleted(rs.getBoolean("is_deleted"))
+            .applyBaseFields(rs)
             .build();
 
     private static final String INSERT_QUERY = "INSERT INTO \"zones\"(name) VALUES(?)";

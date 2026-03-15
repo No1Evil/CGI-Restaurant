@@ -6,7 +6,7 @@ import org.kindness.common.grpc.restaraunt.*;
 import org.kindness.common.model.impl.Restaurant;
 import org.kindness.coremodule.domain.restaurant.RestaurantService;
 import org.kindness.coremodule.util.GrpcServiceUtil;
-import org.kindness.coremodule.util.TimestampConverter;
+import org.kindness.common.model.util.TimestampConverter;
 import org.springframework.grpc.server.service.GrpcService;
 
 import java.util.List;
@@ -47,8 +47,8 @@ public final class RestaurantGrpcController extends RestaurantServiceGrpc.Restau
                 .setAddress(rs.getAddress())
                 .setEmail(rs.getEmail())
                 .setPhone(rs.getPhone())
-                .setOpenTime(TimestampConverter.fromLocalTime(rs.getOpenTime()))
-                .setCloseTime(TimestampConverter.fromLocalTime(rs.getCloseTime()))
+                .setOpenTime(TimestampConverter.fromLocalTime(rs.getOpenAt()))
+                .setCloseTime(TimestampConverter.fromLocalTime(rs.getCloseAt()))
                 .build();
     }
 }

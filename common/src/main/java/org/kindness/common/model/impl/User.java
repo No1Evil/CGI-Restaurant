@@ -18,10 +18,10 @@ import java.util.List;
 public final class User extends BaseModel {
     private Long userId;
     private String firstName;
-    private String secondName;
+    private String lastName;
     private String email;
-    private String passwordHash;
-    private String globalRole;
+    private String password;
+    private String role;
 
     private List<UserRestaurantPermission> permissions;
 }

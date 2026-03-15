@@ -30,32 +30,30 @@ public final class JdbcUserDao implements BaseDao<User> {
         UPDATE_RESTAURANT_ROLE = new String(updateRestaurantRoleScript.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
     }
 
-    private static final RowMapper<User> mapper = (rs, rowNum) -> User.builder()
+    private static final RowMapper<User> mapper = (rs, _) -> User.builder()
             .userId(rs.getLong("id"))
             .firstName(rs.getString("first_name"))
-            .secondName(rs.getString("second_name"))
+            .lastName(rs.getString("last_name"))
             .email(rs.getString("email"))
-            .passwordHash(rs.getString("password_hash"))
-            .globalRole(rs.getString("global_role"))
-            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
-            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
-            .isDeleted(rs.getBoolean("is_deleted"))
+            .password(rs.getString("password"))
+            .role(rs.getString("role"))
+            .applyBaseFields(rs)
             .build();
 
-    private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, second_name, email, password_hash, global_role) VALUES(?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, last_name, email, password, role) VALUES(?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"users\" SET is_deleted = TRUE WHERE id = ?";
     private static final String FIND_ALL_QUERY = "SELECT * FROM \"users\" where is_deleted = false";
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM \"users\" WHERE id=? and is_deleted = false";
     private static final String FIND_BY_EMAIL = "SELECT * FROM \"users\" WHERE email=? and is_deleted = false";
     private static final String GET_USER_PERMISSIONS_QUERY = "SELECT * FROM \"user_restaurant_permissions\" WHERE user_id = ?";
-    private static final String UPDATE_GLOBAL_ROLE_QUERY = "UPDATE \"users\" SET global_role = ? WHERE id = ? and is_deleted = false";
+    private static final String UPDATE_GLOBAL_ROLE_QUERY = "UPDATE \"users\" SET role = ? WHERE id = ? and is_deleted = false";
     private static String UPDATE_RESTAURANT_ROLE;
 
     @Override
     public void insert(User model) {
         jdbcTemplate.update(INSERT_QUERY,
-                model.getFirstName(), model.getSecondName(),
-                model.getEmail(), model.getPasswordHash(), model.getGlobalRole());
+                model.getFirstName(), model.getLastName(),
+                model.getEmail(), model.getPassword(), model.getRole());
     }
 
     @Override
@@ -70,7 +68,7 @@ public final class JdbcUserDao implements BaseDao<User> {
 
     @Override
     public Optional<User> findById(Long id) {
-        return jdbcTemplate.query(FIND_BY_ID_QUERY, mapper).stream().findFirst();
+        return jdbcTemplate.query(FIND_BY_ID_QUERY, mapper, id).stream().findFirst();
     }
 
     public Optional<User> findByEmail(String email) {

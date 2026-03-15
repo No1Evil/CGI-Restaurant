@@ -23,7 +23,7 @@ public final class UserGrpcController extends UserServiceGrpc.UserServiceImplBas
 
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
             User user = userService.getUserData(request.getUserId());
-            responseBuilder.mergeFrom(convert(user));
+            responseBuilder.setData(convert(user));
         });
     }
 
@@ -69,12 +69,13 @@ public final class UserGrpcController extends UserServiceGrpc.UserServiceImplBas
     }
 
     private static UserData convert(User user){
+        String role = user.getRole() != null ? user.getRole() : "USER";
         return UserData.newBuilder()
                 .setUserId(user.getUserId())
                 .setEmail(user.getEmail())
                 .setFirstName(user.getFirstName())
-                .setSecondName(user.getSecondName())
-                .setRole(user.getGlobalRole())
+                .setLastName(user.getLastName())
+                .setRole(role)
                 .addAllPermissions(convertPermissions(user.getPermissions()))
                 .build();
     }

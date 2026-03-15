@@ -48,7 +48,7 @@ message RestaurantPermission {
 message UserData{
   int64 user_id = 1;
   string first_name = 2;
-  string second_name = 3;
+  string last_name = 3;
   string email = 4;
   string role = 5;
 

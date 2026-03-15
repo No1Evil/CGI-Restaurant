@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.kindness.common.model.BaseModel;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter @Setter
@@ -17,6 +18,7 @@ public final class Reservation extends BaseModel {
     private Long id;
     private Long userId;
     private Long tableId;
-    private LocalDateTime reservationStart;
-    private LocalDateTime reservationEnd;
+
+    private Instant startsAt;
+    private Instant endsAt;
 }

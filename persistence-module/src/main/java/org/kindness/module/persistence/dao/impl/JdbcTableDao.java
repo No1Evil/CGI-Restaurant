@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.sql.Types;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,9 +42,7 @@ public final class JdbcTableDao implements BaseDao<Table> {
             .capacity(rs.getInt("capacity"))
             .posX(rs.getFloat("pos_x"))
             .posY(rs.getFloat("pos_y"))
-            .dateCreated(rs.getTimestamp("date_created").toLocalDateTime())
-            .dateUpdated(rs.getTimestamp("date_updated").toLocalDateTime())
-            .isDeleted(rs.getBoolean("is_deleted"))
+            .applyBaseFields(rs)
             .build();
 
     private static final String INSERT_QUERY = "INSERT INTO \"tables\"(zone_id, restaurant_id, capacity, pos_x, pos_y) VALUES(?, ?, ?, ?, ?)";
@@ -79,12 +81,16 @@ public final class JdbcTableDao implements BaseDao<Table> {
      * 3. By people table capacity or whichever people table capacity
      * @return all available tables within startTime and endTime
      */
-    public List<Table> findAllAvailable(@Nullable Long zoneId, @Nullable Long restaurantId, @Nullable Integer capacity, Timestamp startTime, Timestamp endTime) {
-        return jdbcTemplate.query(FIND_AVAILABLE_TABLES_QUERY, mapper,
-                zoneId, zoneId,
-                restaurantId, restaurantId,
-                capacity, capacity,
-                endTime, startTime);
+    public List<Table> findAllAvailable(@Nullable Long zoneId, @Nullable Long restaurantId, @Nullable Integer capacity, Instant startTime, Instant endTime) {
+        NamedParameterJdbcTemplate namedTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("zoneId", zoneId, Types.BIGINT);
+        params.addValue("restaurantId", restaurantId, Types.BIGINT);
+        params.addValue("capacity", capacity, Types.INTEGER);
+        params.addValue("start", Timestamp.from(startTime));
+        params.addValue("end", Timestamp.from(endTime));
+
+        return namedTemplate.query(FIND_AVAILABLE_TABLES_QUERY, params, mapper);
     }
 
     public List<Table> findAllByZoneId(Long zoneId) {

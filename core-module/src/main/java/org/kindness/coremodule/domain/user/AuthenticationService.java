@@ -18,7 +18,7 @@ public class AuthenticationService {
     public User login(String email, String password){
         User user = userDao.findByEmail(email)
                 .orElseThrow(() -> new IllegalStateException("No such user found"));
-        if (passwordEncoder.matches(password, user.getPasswordHash())){
+        if (passwordEncoder.matches(password, user.getPassword())){
             return user;
         } else {
             throw new IllegalStateException("Password doesn`t match");

@@ -14,6 +14,11 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // JWT (https://github.com/jwtk/jjwt?tab=readme-ov-file#gradle)
+    implementation("io.jsonwebtoken:jjwt-api:0.13.0")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.13.0")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.13.0")
 }
 
 // https://medium.com/@rajumanoj/protobuf-installation-for-grpc-gradle-a063d69214c1
@@ -33,6 +38,15 @@ protobuf {
             task.plugins {
                 id("grpc") { }
             }
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs("build/generated/source/proto/main/grpc")
+            srcDirs("build/generated/source/proto/main/java")
         }
     }
 }

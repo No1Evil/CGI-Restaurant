@@ -6,7 +6,7 @@ import org.kindness.common.grpc.user.RegisterRequest;
 import org.kindness.common.grpc.user.RegisterResponse;
 import org.kindness.common.grpc.user.RegistrationServiceGrpc;
 import org.kindness.common.model.impl.User;
-import org.kindness.coremodule.domain.security.JwtTokenProvider;
+import org.kindness.common.model.security.JwtTokenProvider;
 import org.kindness.coremodule.domain.user.RegistrationService;
 import org.kindness.coremodule.util.GrpcServiceUtil;
 import org.springframework.grpc.server.service.GrpcService;

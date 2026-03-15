@@ -8,11 +8,22 @@ option java_package = "org.kindness.common.grpc.reservation";
 service ReservationService {
   rpc ReserveTable(ReserveTableRequest) returns(TableReservationResponse);
   rpc CancelReservation(CancelReservationRequest) returns(CancelReservationResponse);
+  rpc GetReservation(RequestReservation) returns (ReservationResponse);
+  rpc GetReservationCollection(RequestReservationCollection) returns (ReservationCollectionResponse);
 }
 
 /*
 Requests
  */
+
+message RequestReservation{
+  int64 reservation_id = 1;
+  int64 user_id = 2;
+}
+
+message RequestReservationCollection{
+  int64 user_id = 1;
+}
 
 message ReserveTableRequest{
   int64 user_id = 1;
@@ -24,11 +35,20 @@ message ReserveTableRequest{
 
 message CancelReservationRequest{
   int64 reservation_id = 1;
+  int64 user_id = 2;
 }
 
 /*
 Data
  */
+
+message ReservationData {
+  int64 id = 1;
+  int64 user_id = 2;
+  int64 table_id = 3;
+  google.protobuf.Timestamp reservation_start = 4;
+  google.protobuf.Timestamp reservation_end = 5;
+}
 
 /*
 Responses
@@ -40,6 +60,19 @@ message CancelReservationResponse{
 }
 
 message TableReservationResponse{
-  bool success = 1;
-  string message = 2;
+  int64 reservation_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message ReservationResponse{
+  ReservationData data = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message ReservationCollectionResponse{
+  repeated ReservationData data = 1;
+  bool success = 2;
+  string message = 3;
 }
