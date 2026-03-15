@@ -22,4 +22,12 @@ Once all containers are running, access the application at:
 
 > API ``http://localhost/api/`` or ``http://<your_server_ip>``
 
+# Giving admin rights to existing users
+
+``docker exec -it postgres_db psql -U restaurant_admin -d my_restaurant_db``
+
+``UPDATE users SET role = 'ADMIN' WHERE email = '<your-user-email>@gmail.com';``
+
+``exit``
+
 #### Fjodor Tsumakov
