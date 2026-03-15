@@ -48,6 +48,10 @@ to create a good-looking web
 to try this someday. So that day came.
 6. gRPC - is not needed for the project, but I wanted to make the project scalable and extend my portfolio.
 
+#### Restaurant management system
+1. Thought that creating a one-restaurant website was pretty
+boring and easy so I made a life a bit harder and made it scalable restaurant system.
+
 ### Technical challenges
 1. Have created for myself a pain with gRPC and had to write
 for each call to backend requests and responses :death-skull:
