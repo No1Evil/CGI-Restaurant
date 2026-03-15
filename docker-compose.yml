@@ -1,10 +1,32 @@
 services:
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: restaurant_admin
+      POSTGRES_PASSWORD: 1234a
+      POSTGRES_DB: my_restaurant_db
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    ports:
+      - "5432"
+    networks:
+      - restaurant-net
+
   core-app:
     build:
       context: .
       dockerfile: core-module/Dockerfile
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres_db:5432/my_restaurant_db?sslmode=disable
+      DATABASE_USER: restaurant_admin
+      DATABASE_PASSWORD: 1234a
     networks:
       - restaurant-net
+    depends_on:
+      - db
     ports:
       - "9090"
 
@@ -12,24 +34,25 @@ services:
     build:
       context: .
       dockerfile: web-app/Dockerfile
+    container_name: web-app
     networks:
       - restaurant-net
     ports:
       - "8080:8080"
     environment:
-      - GRPC_SERVER_HOST=app-core
-      - GRPC_SERVER_PORT=9090
+      - GRPC_CLIENT_DEFAULT_CHANNEL_ADDRESS=static://core-app:9090
+      - GRPC_CLIENT_DEFAULT_CHANNEL_NEGOTIATION_TYPE=plaintext
     depends_on:
-      - app-core
+      - core-app
 
   frontend:
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
     networks:
       - restaurant-net
     ports:
-      - "443:80"
+      - "80:80"
     depends_on:
       - web-app
 
