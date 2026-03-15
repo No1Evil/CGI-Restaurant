@@ -1,6 +1,5 @@
-## Project Workflow
-### Stack
-
+# Project Workflow
+## Stack
 > Required: \
 > Java LTS 25 \
 > Spring boot
@@ -12,7 +11,7 @@
 > gRPC \
 > Security: Spring security + JWT
 
-### Visualization:
+## Visualization:
 
 #### C4 model
 ![C4 model](images/CGI-Restaraunt-c4model.drawio.png)
@@ -20,6 +19,14 @@
 ![Entity relation model](images/CGI-Restaraunt-Entities.drawio.png)
 
 ## Workflow
+
+### First steps
+
+### The why
+
+### Challenges
+
+### Future improvements
 
 Updated the entity relation model
 as we need to write an admin-panel it is good to have each entity an
