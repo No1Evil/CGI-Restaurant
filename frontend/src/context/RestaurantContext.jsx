@@ -6,6 +6,7 @@ export const RestaurantContext = createContext(undefined);
 export const RestaurantProvider = ({ children }) => {
     const [restaurants, setRestaurants] = useState([]);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         api.post('/restaurant/all').then(res => {
@@ -18,7 +19,7 @@ export const RestaurantProvider = ({ children }) => {
             } else if (list.length > 0) {
                 setSelectedRestaurant(list[0]);
             }
-        });
+        }).finally(() => setLoading(false));
     }, []);
 
     const updateRestaurant = (id) => {
@@ -28,7 +29,7 @@ export const RestaurantProvider = ({ children }) => {
     };
 
     return (
-        <RestaurantContext.Provider value={{ restaurants, selectedRestaurant, updateRestaurant }}>
+        <RestaurantContext.Provider value={{ restaurants, selectedRestaurant, updateRestaurant, loading }}>
             {children}
         </RestaurantContext.Provider>
     );
