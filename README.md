@@ -1,8 +1,8 @@
 # CGI Restaurant system, pet project
 
-/| Workflow link:
-
-(how did I start the project, my minds, breakthroughs, etc)
+[Project visualization](WORKFLOW.md#Visualization)\
+[Project stack](WORKFLOW.md#Stack)\
+[Project workflow](WORKFLOW.md#workflow)
 
 ## Installation
 
