@@ -6,12 +6,10 @@ import org.kindness.common.model.util.TimestampConverter;
 import org.kindness.webapp.configuration.security.UserPrincipal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/reservation")
@@ -28,8 +26,8 @@ public class ReservationController {
         ReserveTableRequest request = ReserveTableRequest.newBuilder()
                 .setUserId(userId)
                 .setTableId(dto.tableId())
-                .setReservationStart(TimestampConverter.fromLocalDateTime(dto.start))
-                .setReservationEnd(TimestampConverter.fromLocalDateTime(dto.end))
+                .setReservationStart(TimestampConverter.fromInstant(dto.start))
+                .setReservationEnd(TimestampConverter.fromInstant(dto.end))
                 .build();
 
         TableReservationResponse response = reservationService.reserveTable(request);
@@ -98,5 +96,5 @@ public class ReservationController {
         return ResponseEntity.ok(response.getDataList());
     }
 
-    public record ReservationDto(long tableId, LocalDateTime start, LocalDateTime end) {}
+    public record ReservationDto(long tableId, Instant start, Instant end) {}
 }

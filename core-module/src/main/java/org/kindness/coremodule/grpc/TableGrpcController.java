@@ -41,8 +41,8 @@ public final class TableGrpcController extends TableServiceGrpc.TableServiceImpl
         var responseBuilder = TableCollectionResponse.newBuilder();
 
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
-            var startTime = TimestampConverter.toSqlTimestamp(request.getStartTime());
-            var endTime = TimestampConverter.toSqlTimestamp(request.getEndTime());
+            var startTime = TimestampConverter.toInstant(request.getStartTime());
+            var endTime = TimestampConverter.toInstant(request.getEndTime());
 
             List<Table> tables = tableService.getAvailableTables(
                     request.getZoneId(), request.getRestaurantId(), request.getCapacity(),

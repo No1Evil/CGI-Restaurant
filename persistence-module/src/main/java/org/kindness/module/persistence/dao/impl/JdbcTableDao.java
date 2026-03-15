@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,17 +80,14 @@ public final class JdbcTableDao implements BaseDao<Table> {
      * 3. By people table capacity or whichever people table capacity
      * @return all available tables within startTime and endTime
      */
-    public List<Table> findAllAvailable(@Nullable Long zoneId, @Nullable Long restaurantId, @Nullable Integer capacity, Timestamp startTime, Timestamp endTime) {
+    public List<Table> findAllAvailable(@Nullable Long zoneId, @Nullable Long restaurantId, @Nullable Integer capacity, Instant startTime, Instant endTime) {
         NamedParameterJdbcTemplate namedTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("zoneId", zoneId);
         params.addValue("restaurantId", restaurantId);
         params.addValue("capacity", capacity);
-        params.addValue("start", startTime);
-        params.addValue("end", endTime);
-
-        System.out.println("start time: " + startTime);
-        System.out.println("end time " + endTime);
+        params.addValue("start", Timestamp.from(startTime));
+        params.addValue("end", Timestamp.from(endTime));
 
         return namedTemplate.query(FIND_AVAILABLE_TABLES_QUERY, params, mapper);
     }

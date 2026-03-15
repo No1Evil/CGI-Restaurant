@@ -40,13 +40,13 @@ public final class JdbcUserDao implements BaseDao<User> {
             .applyBaseFields(rs)
             .build();
 
-    private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, second_name, email, password_hash, global_role) VALUES(?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO \"users\"(first_name, last_name, email, password, role) VALUES(?, ?, ?, ?, ?)";
     private static final String REMOVE_QUERY = "UPDATE \"users\" SET is_deleted = TRUE WHERE id = ?";
     private static final String FIND_ALL_QUERY = "SELECT * FROM \"users\" where is_deleted = false";
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM \"users\" WHERE id=? and is_deleted = false";
     private static final String FIND_BY_EMAIL = "SELECT * FROM \"users\" WHERE email=? and is_deleted = false";
     private static final String GET_USER_PERMISSIONS_QUERY = "SELECT * FROM \"user_restaurant_permissions\" WHERE user_id = ?";
-    private static final String UPDATE_GLOBAL_ROLE_QUERY = "UPDATE \"users\" SET global_role = ? WHERE id = ? and is_deleted = false";
+    private static final String UPDATE_GLOBAL_ROLE_QUERY = "UPDATE \"users\" SET role = ? WHERE id = ? and is_deleted = false";
     private static String UPDATE_RESTAURANT_ROLE;
 
     @Override

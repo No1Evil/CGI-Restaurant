@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class TableService {
     public List<Table> getAvailableTables(@Nullable Long zoneId,
                                           @Nullable Long restaurantId,
                                           @Nullable Integer capacity,
-                                          Timestamp startTime, Timestamp endTime){
+                                          Instant startTime, Instant endTime){
         return tableDao.findAllAvailable(zoneId, restaurantId, capacity, startTime, endTime);
     }
 

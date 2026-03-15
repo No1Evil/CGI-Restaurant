@@ -25,14 +25,14 @@ public final class ReservationGrpcController extends ReservationServiceGrpc.Rese
         var responseBuilder = TableReservationResponse.newBuilder();
 
         GrpcServiceUtil.handleRequest(responseBuilder, observer, () -> {
-            var reservationStart = TimestampConverter.toLocalDateTime(request.getReservationStart());
-            var reservationEnd = TimestampConverter.toLocalDateTime(request.getReservationEnd());
+            var reservationStart = TimestampConverter.toInstant(request.getReservationStart());
+            var reservationEnd = TimestampConverter.toInstant(request.getReservationEnd());
 
             var reservation = Reservation.builder()
                     .userId(request.getUserId())
                     .tableId(request.getTableId())
-                    .reservationStart(reservationStart)
-                    .reservationEnd(reservationEnd)
+                    .startsAt(reservationStart)
+                    .endsAt(reservationEnd)
                     .build();
 
             Long reservationId = reservationService.createReservation(reservation);
@@ -60,7 +60,7 @@ public final class ReservationGrpcController extends ReservationServiceGrpc.Rese
             long reservationId = request.getReservationId();
 
             User user = userService.getUserData(userId);
-            boolean isPrivileged = !"USER".equalsIgnoreCase(user.getGlobalRole());
+            boolean isPrivileged = !"USER".equalsIgnoreCase(user.getRole());
 
             Reservation reservation;
             if (isPrivileged) {
@@ -83,7 +83,7 @@ public final class ReservationGrpcController extends ReservationServiceGrpc.Rese
             long userId = request.getUserId();
 
             User user = userService.getUserData(userId);
-            boolean isPrivileged = "ADMIN".equalsIgnoreCase(user.getGlobalRole());
+            boolean isPrivileged = "ADMIN".equalsIgnoreCase(user.getRole());
 
             List<Reservation> reservations;
             if (isPrivileged) {
@@ -110,8 +110,8 @@ public final class ReservationGrpcController extends ReservationServiceGrpc.Rese
                 .setId(res.getId())
                 .setUserId(res.getUserId())
                 .setTableId(res.getTableId())
-                .setReservationStart(TimestampConverter.fromLocalDateTime(res.getReservationStart()))
-                .setReservationEnd(TimestampConverter.fromLocalDateTime(res.getReservationEnd()))
+                .setReservationStart(TimestampConverter.fromInstant(res.getStartsAt()))
+                .setReservationEnd(TimestampConverter.fromInstant(res.getEndsAt()))
                 .build();
     }
 }

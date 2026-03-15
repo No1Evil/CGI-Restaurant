@@ -47,8 +47,8 @@ public final class RestaurantGrpcController extends RestaurantServiceGrpc.Restau
                 .setAddress(rs.getAddress())
                 .setEmail(rs.getEmail())
                 .setPhone(rs.getPhone())
-                .setOpenTime(TimestampConverter.fromLocalTime(rs.getOpenTime()))
-                .setCloseTime(TimestampConverter.fromLocalTime(rs.getCloseTime()))
+                .setOpenTime(TimestampConverter.fromLocalTime(rs.getOpenAt()))
+                .setCloseTime(TimestampConverter.fromLocalTime(rs.getCloseAt()))
                 .build();
     }
 }

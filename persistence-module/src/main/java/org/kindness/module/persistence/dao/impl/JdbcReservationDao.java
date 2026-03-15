@@ -110,8 +110,8 @@ public final class JdbcReservationDao implements BaseDao<Reservation> {
                 IS_TIME_TAKEN,
                 Integer.class,
                 table_id,
-                start,
-                end
+                Timestamp.from(end),
+                Timestamp.from(start)
         );
         return value != null && value > 0;
     }

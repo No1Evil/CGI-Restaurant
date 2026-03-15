@@ -5,52 +5,56 @@ import com.google.protobuf.Timestamp;
 import java.time.*;
 
 public class TimestampConverter {
+
+    public static final ZoneId DEFAULT_ZONE = ZoneId.of("Europe/Tallinn");
+
     // Source - https://stackoverflow.com/a/52651480
     // Posted by Basil Bourque, modified by community. See post 'Timeline' for change history
     // Retrieved 2026-03-03, License - CC BY-SA 4.0
     public static LocalDateTime toLocalDateTime(Timestamp ts){
         Instant instant =  Instant.ofEpochSecond( ts.getSeconds() , ts.getNanos() ) ;
-        ZoneId z = ZoneId.of("UTC");
-        ZonedDateTime zdt = instant.atZone( z ) ;
+        ZonedDateTime zdt = instant.atZone(DEFAULT_ZONE) ;
         return zdt.toLocalDateTime();
     }
 
-    public static LocalTime toLocalTime(com.google.protobuf.Timestamp protoTs) {
+    public static LocalTime toLocalTime(Timestamp protoTs) {
         if (protoTs == null) return null;
-
         Instant instant = Instant.ofEpochSecond(protoTs.getSeconds(), protoTs.getNanos());
-
-        LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneOffset.UTC);
-
-        return ldt.toLocalTime();
+        return instant.atZone(DEFAULT_ZONE).toLocalTime();
     }
 
-    public static Timestamp fromLocalTime(LocalTime localTime) {
-        LocalDateTime ldt = localTime.atDate(LocalDate.now());
+    public static Timestamp fromLocalTime(LocalTime lt) {
+        if (lt == null) return null;
+        Instant instant = lt.atDate(LocalDate.now(DEFAULT_ZONE))
+                .atZone(DEFAULT_ZONE)
+                .toInstant();
 
         return Timestamp.newBuilder()
-                .setSeconds(ldt.toEpochSecond(ZoneOffset.UTC))
-                .setNanos(ldt.getNano())
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
                 .build();
     }
 
-    public static Timestamp fromLocalDateTime(LocalDateTime localDateTime) {
-        if (localDateTime == null) return null;
-
-        long seconds = localDateTime.toEpochSecond(ZoneOffset.UTC);
-        int nanos = localDateTime.getNano();
+    public static Timestamp fromLocalDateAndTime(LocalDate date, LocalTime time) {
+        if (date == null || time == null) return null;
+        Instant instant = LocalDateTime.of(date, time)
+                .atZone(DEFAULT_ZONE)
+                .toInstant();
 
         return Timestamp.newBuilder()
-                .setSeconds(seconds)
-                .setNanos(nanos)
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
                 .build();
     }
 
-    public static java.sql.Timestamp toSqlTimestamp(com.google.protobuf.Timestamp protoTs) {
-        if (protoTs == null) return null;
+    public static Timestamp fromLocalDateTime(LocalDateTime ldt) {
+        if (ldt == null) return null;
+        Instant instant = ldt.atZone(DEFAULT_ZONE).toInstant();
 
-        Instant instant = Instant.ofEpochSecond(protoTs.getSeconds(), protoTs.getNanos());
-        return java.sql.Timestamp.from(instant);
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
     }
 
     public static Timestamp fromInstant(Instant instant) {

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.kindness.common.model.impl.Reservation;
 import org.kindness.common.model.impl.Restaurant;
 import org.kindness.common.model.impl.Table;
+import org.kindness.common.model.util.TimestampConverter;
 import org.kindness.module.persistence.dao.impl.JdbcReservationDao;
 import org.kindness.module.persistence.dao.impl.JdbcRestaurantDao;
 import org.kindness.module.persistence.dao.impl.JdbcTableDao;
@@ -11,10 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.plaf.PanelUI;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
+
+import static org.kindness.common.model.util.TimestampConverter.DEFAULT_ZONE;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +30,11 @@ public class ReservationService {
 
     @Transactional
     public Long createReservation(Reservation res) throws IllegalStateException {
-        if (res.getReservationStart().isBefore(LocalDateTime.now())){
+        if (res.getStartsAt().isBefore(Instant.now())){
             throw new IllegalStateException("Cant reserve before now");
         }
+
+        System.out.println(reservationDao.isTimeTaken(res));
 
         if (reservationDao.isTimeTaken(res)){
             throw new IllegalStateException("The time is taken");
@@ -39,10 +46,10 @@ public class ReservationService {
         Restaurant restaurant = restaurantDao.findById(table.getRestaurantId()).orElseThrow(() ->
                 new IllegalStateException("No such restaurant"));
 
-        LocalTime startTime = res.getReservationStart().toLocalTime();
-        LocalTime endTime = res.getReservationEnd().toLocalTime();
+        LocalTime startTime = res.getStartsAt().atZone(DEFAULT_ZONE).toLocalTime();
+        LocalTime endTime = res.getStartsAt().atZone(DEFAULT_ZONE).toLocalTime();
 
-        if (startTime.isBefore(restaurant.getOpenTime()) || endTime.isAfter(restaurant.getCloseTime())) {
+        if (startTime.isBefore(restaurant.getOpenAt()) || endTime.isAfter(restaurant.getCloseAt())) {
             throw new IllegalStateException("Restaurant is not open at that time");
         }
 

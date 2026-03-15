@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+
 @RestController
 @RequestMapping("/table")
 @RequiredArgsConstructor
@@ -27,12 +29,15 @@ public class TableController {
 
     @PostMapping("/available")
     public ResponseEntity<?> getAvailableTables(@RequestBody AvailableTablesDto dto) {
+        Instant start = Instant.parse(dto.startTime);
+        Instant end = Instant.parse(dto.endTime);
+
         RequestAvailableTables request = RequestAvailableTables.newBuilder()
-                .setRestaurantId(dto.restaurantId())
-                .setZoneId(dto.zoneId())
-                .setCapacity(dto.capacity())
-                .setStartTime(TimestampConverter.fromLocalTime(dto.startTime()))
-                .setEndTime(TimestampConverter.fromLocalTime(dto.endTime()))
+                .setRestaurantId(dto.restaurantId)
+                .setZoneId(dto.zoneId)
+                .setCapacity(dto.capacity)
+                .setStartTime(TimestampConverter.fromInstant(start))
+                .setEndTime(TimestampConverter.fromInstant(end))
                 .build();
 
         TableCollectionResponse response = tableService.getAvailableTables(request);
@@ -45,5 +50,5 @@ public class TableController {
     }
 
     public record AvailableTablesDto(Long restaurantId, Long zoneId, Integer capacity,
-                                     java.time.LocalTime startTime, java.time.LocalTime endTime) {}
+                                     String startTime, String endTime) {}
 }
