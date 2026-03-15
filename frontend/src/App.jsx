@@ -8,6 +8,7 @@ import Layout from "./components/Layout.jsx";
 import {RestaurantProvider} from "./context/RestaurantContext.jsx";
 import SelectRestaurant from "./pages/SelectRestaurant.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import AdminPanel from "./pages/AdminPanel.jsx";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/register" element={<RegisterPage />} />
                             <Route path="/select-restaurant" element={<SelectRestaurant />} />
+                            <Route path="/admin" element={<AdminPanel />} />
                             <Route path="/reservations" element={
                                 <ProtectedRoute>
                                     <MyReservations />
