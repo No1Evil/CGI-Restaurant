@@ -17,7 +17,7 @@ Build and start the containers *(inside the cloned repo)*\
 ``sudo docker compose up -d --build``
 
 # Accessing the system
-Once all containers are running, access the application at:\
+Once all containers are running, access the application at:
 > Frontend: ``http://localhost`` or ``http://<your_server_ip>``
 
 > API ``http://localhost/api/`` or ``http://<your_server_ip>``
