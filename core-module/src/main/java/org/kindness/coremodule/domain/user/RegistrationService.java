@@ -23,9 +23,9 @@ public class RegistrationService {
 
         User user = User.builder()
                 .email(email)
-                .passwordHash(encodedPassword)
+                .password(encodedPassword)
                 .firstName(firstName)
-                .secondName(secondName)
+                .lastName(secondName)
                 .build();
 
         userDao.insert(user);

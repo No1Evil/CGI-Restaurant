@@ -47,9 +47,9 @@ public class AuthenticationController {
         User user = User.builder()
                 .userId(data.getUserId())
                 .firstName(data.getFirstName())
-                .secondName(data.getSecondName())
+                .lastName(data.getLastName())
                 .email(data.getEmail())
-                .globalRole(data.getRole()).build();
+                .role(data.getRole()).build();
 
         return ResponseEntity.ok(new AuthResponse(user, response.getToken()));
     }

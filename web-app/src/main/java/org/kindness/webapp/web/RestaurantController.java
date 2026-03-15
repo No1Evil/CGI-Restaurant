@@ -65,8 +65,8 @@ public class RestaurantController {
                 .email(data.getEmail())
                 .address(data.getAddress())
                 .name(data.getName())
-                .openTime(TimestampConverter.toLocalTime(data.getOpenTime()))
-                .closeTime(TimestampConverter.toLocalTime(data.getCloseTime()))
+                .openAt(TimestampConverter.toLocalTime(data.getOpenTime()))
+                .closeAt(TimestampConverter.toLocalTime(data.getCloseTime()))
                 .phone(data.getPhone())
                 .build();
     }

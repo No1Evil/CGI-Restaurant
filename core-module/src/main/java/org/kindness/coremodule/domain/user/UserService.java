@@ -17,7 +17,7 @@ public class UserService {
     public User getUserData(Long id){
         if (id == null) throw new IllegalStateException("Id cannot be null");
         User user = userDao.findById(id).orElseThrow(() -> new IllegalStateException("No such user"));
-        if (isPrivileged(user.getGlobalRole())) userDao.fillWithPermissions(user);
+        if (isPrivileged(user.getRole())) userDao.fillWithPermissions(user);
         return user;
     }
 

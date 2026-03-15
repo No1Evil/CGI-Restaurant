@@ -7,7 +7,7 @@ and not exists(
     select 1
     from "reservations" r
     where r.table_id = t.id
-        and r.reservation_start < :end
-        and r.reservation_end > :start
+        and r.ends_at > :start
+        and r.starts_at < :end
         and r.is_deleted = false
 )
