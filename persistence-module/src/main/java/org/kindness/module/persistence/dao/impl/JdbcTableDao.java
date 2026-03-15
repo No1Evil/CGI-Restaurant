@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -83,9 +84,9 @@ public final class JdbcTableDao implements BaseDao<Table> {
     public List<Table> findAllAvailable(@Nullable Long zoneId, @Nullable Long restaurantId, @Nullable Integer capacity, Instant startTime, Instant endTime) {
         NamedParameterJdbcTemplate namedTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("zoneId", zoneId);
-        params.addValue("restaurantId", restaurantId);
-        params.addValue("capacity", capacity);
+        params.addValue("zoneId", zoneId, Types.BIGINT);
+        params.addValue("restaurantId", restaurantId, Types.BIGINT);
+        params.addValue("capacity", capacity, Types.INTEGER);
         params.addValue("start", Timestamp.from(startTime));
         params.addValue("end", Timestamp.from(endTime));
 
