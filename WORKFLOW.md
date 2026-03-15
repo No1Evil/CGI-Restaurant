@@ -80,7 +80,8 @@ utilized java.time.Instant in the backend for UTC handling
 7. Use Redis to store the cache for user data
 8. Make a dedicated authentication-app for validating and creating jwt tokens
 9. Use RabbitMQ/Redis to send users notifications
-10. Tests.....
+10. Store password encryption token in .env
+11. Tests.....
 
 ### Raw workflow/notes 
 Updated the entity relation model
