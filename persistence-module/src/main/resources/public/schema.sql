@@ -88,31 +88,40 @@ insert into "restaurants" (name, address, phone, email)
 values ( 'main_restaurant', 'Tartu', '+372 53293281', 'main_restaurant@gmail.com');
 
 INSERT INTO "zones" (name)
-VALUES ('Vaikne nurk');
+VALUES ('Silent place');
 
 INSERT INTO "zones" (name)
-VALUES ('Akna all');
+VALUES ('Near the window');
 
 INSERT INTO "zones" (name)
-VALUES ('Laste mangunurk');
+VALUES ('Kindergarten');
+
+INSERT INTO "zones" (name)
+VALUES ('Center');
 
 INSERT INTO "tables" (zone_id, restaurant_id,capacity, pos_x, pos_y)
-VALUES (1,1, 2, 10.5, 20.0);
+VALUES (1,1, 2, 100, 100.0);
 
 INSERT INTO "tables" (zone_id, restaurant_id, capacity, pos_x, pos_y)
-VALUES (2, 1, 2, 30.5, 90.0);
+VALUES (2, 1, 2, 100, 200.0);
 
 INSERT INTO "tables" (zone_id, restaurant_id, capacity, pos_x, pos_y)
-VALUES (3, 1, 4, 25.5, 0.0);
+VALUES (2, 1, 2, 100, 300.0);
 
 INSERT INTO "tables" (zone_id, restaurant_id, capacity, pos_x, pos_y)
-VALUES (3, 1, 6, 25.5, 0.0);
+VALUES (1, 1, 2, 100, 400.0);
 
 INSERT INTO "tables" (zone_id, restaurant_id, capacity, pos_x, pos_y)
-VALUES (2, 1, 8, 45.5, 13.0);
+VALUES (3, 1, 4, 700.0, 200.0);
 
 INSERT INTO "tables" (zone_id, restaurant_id, capacity, pos_x, pos_y)
-VALUES (2, 1, 6, 15.5, 0.0);
+VALUES (3, 1, 4, 700.0, 300.0);
 
 INSERT INTO "tables" (zone_id, restaurant_id, capacity, pos_x, pos_y)
-VALUES (1, 1, 4, 0.5, 30.0);
+VALUES (3, 1, 4, 700.0, 400.0);
+
+INSERT INTO "tables" (zone_id, restaurant_id, capacity, pos_x, pos_y)
+VALUES (4, 1, 8, 400, 400);
+
+INSERT INTO "tables" (zone_id, restaurant_id, capacity, pos_x, pos_y)
+VALUES (4, 1, 8, 400, 200);
