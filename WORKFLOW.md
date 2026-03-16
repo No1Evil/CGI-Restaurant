@@ -77,6 +77,7 @@ utilized java.time.Instant in the backend for UTC handling
 3. Cache user data
 4. Implement api-gateway to make the system scalable
 5. DRY: Make utility classes for JDBC Dao to remove dupe code & strings
+6. Separate gRPC calls from Rest Controllers
 #### Features
 1. Implement more GrpcServices and make all existing SRP
 2. Write more queries and services into the persistence-module
