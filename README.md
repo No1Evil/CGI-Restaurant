@@ -1,10 +1,10 @@
 # CGI Restaurant system
 Pet project
 
-[Project visualization](WORKFLOW.md#Visualization)\
-[Project stack](WORKFLOW.md#Stack)\
-[Project workflow](WORKFLOW.md#workflow)\
-[Website Preview](images/Preview.png)
+[Project visualization](docs/WORKFLOW.md#Visualization)\
+[Project stack](docs/WORKFLOW.md#Stack)\
+[Project workflow](docs/WORKFLOW.md#workflow)\
+[Website Preview](docs/images/Preview.png)
 
 ## Installation
 Clone the repository to your local machine\

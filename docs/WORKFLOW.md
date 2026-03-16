@@ -12,9 +12,13 @@
 > Security: Spring security + JWT
 
 ## Visualization:
-
-#### C4 model
-![C4 model](images/CGI-Restaraunt-c4model.drawio.png)
+#### C4 models
+### System context
+![System context](images/CGI-Restaraunt-System.drawio.png)
+### gRPC Server Application
+![gRPC Server Application](images/CGI-Restaraunt-gRPC-Server-Application.drawio.png)
+### Rest API Application
+![Rest API Application](images/CGI-Restaraunt-Api-Application.drawio.png)
 #### Entity relation model
 ![Entity relation model](images/CGI-Restaraunt-Entities.drawio.png)
 
