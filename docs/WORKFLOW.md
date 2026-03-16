@@ -75,17 +75,24 @@ utilized java.time.Instant in the backend for UTC handling
 6. Combining student-life, this project writing and having a girlfriend L. Skipped a lot of days and time due to this.
 
 ### Improvements that could be made, but no time
-1. Implement api-gateway to make the system really scalable
-2. Make utility classes for JDBC Dao to remove dupe code & strings
-3. Write more queries and services into the persistence-module
-4. Implement more GrpcServices and separate them more.
-5. Reconsider the package structure
-6. RENAME THE CORE-MODULE TO CORE-APP
-7. Use Redis to store the cache for user data
-8. Make a dedicated authentication-app for validating and creating jwt tokens
-9. Use RabbitMQ/Redis to send users notifications
-10. Store password encryption token in .env
-11. Tests.....
+#### Optimization
+1. Use RabbitMQ to send users notifications
+2. Make a dedicated authentication-app for validating and creating jwt tokens
+3. Cache user data
+4. Implement api-gateway to make the system scalable
+5. DRY: Make utility classes for JDBC Dao to remove dupe code & strings
+6. Separate gRPC calls from Rest Controllers
+#### Features
+1. Implement more GrpcServices and make all existing SRP
+2. Write more queries and services into the persistence-module
+3. Tests
+4. Logging
+#### Should be done
+1. Reconsider the package structure
+2. Rename the core-module to core-app
+3. Store password encryption token in .env
+4. Tests
+5. Logging
 
 ### Raw workflow/notes 
 Updated the entity relation model
