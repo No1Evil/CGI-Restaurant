@@ -1,4 +1,10 @@
 # Project Workflow
+[Navigate to workflow](#workflow)\
+[Navigate to System Context](#system-context)\
+[Navigate to gRPC Server Application model](#grpc-server-application)\
+[Navigate to Rest API Application model](#rest-api-application)\
+[Navigate to future improvements](#improvements-that-could-be-made-but-no-time)\
+[Navigate to raw workflow/notes](#raw-workflownotes-)
 ## Stack
 > Required: \
 > Java LTS 25 \
