@@ -1,9 +1,8 @@
 # CGI Restaurant system
 Pet project
 
-[Project visualization](docs/WORKFLOW.md#Visualization)\
+[Project visualization/workflow](docs/WORKFLOW.md)\
 [Project stack](docs/WORKFLOW.md#Stack)\
-[Project workflow](docs/WORKFLOW.md#workflow)\
 [Website Preview](docs/images/Preview.png)
 
 ## Installation
